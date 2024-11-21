@@ -32,3 +32,10 @@ def upload_appreal(request):
 
 def emailer(request):
     return render(request, "emailer.html")
+
+
+def upload_image(request):
+    return render(request, 'upload_stuff.html')
+
+def list_image(request):
+ return render(request, 'list-image.html')
