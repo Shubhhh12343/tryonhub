@@ -1,0 +1,246 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+    <style>
+        .left-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .right-section {
+            margin-top: 20px;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: end;
+            position: relative;
+        }
+        .left-section {
+            background-color: #f8f9fa;
+        }
+        .right-section {
+            background-color: #fff;
+            padding: 2rem;
+        }
+        .card {
+    border: 10px solid white; /* White border to simulate Polaroid */
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden;
+    cursor: pointer;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    position: relative;
+    background-color: #fff;
+    height: 235px;
+    
+     /* Adjust height automatically */
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.card img {
+    object-fit: cover;
+    width: 90%;
+    height: 200px; /* Adjust height to fit Polaroid style */
+    margin-bottom: 10px;
+}
+
+.card .card-body {
+    padding: 0 10px;
+    text-align: center;
+}
+
+.card-body p {
+    margin: 5px 0;
+}
+
+.card .card-body p.font-weight-bold {
+    font-size: 1.1rem;
+}
+
+.card.selected {
+    border: 3px solid #007bff;
+    background-color: #e9f7ff;
+}
+
+        .try-on-button {
+            position: relative;
+            bottom: 2rem;
+            right: 620px;
+            transform: translateX(-50%);
+            top: 330px;
+            width: 400px;
+        }
+    </style>
+{% endblock css %}
+    
+{% block content %}
+ <!--begin::Main-->
+    <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+        <!--begin::Content wrapper-->
+        <div class="d-flex flex-column flex-column-fluid">
+            <!--begin::Content-->
+            <div id="kt_app_content" class="app-content flex-column-fluid">
+                <!--begin::Content container-->
+                <div id="kt_app_content_container" class="app-container container-xxl">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <!-- Left Section: Image Upload -->
+                            <div class="col-md-6 left-section d-flex flex-column align-items-center">
+                                <button class="btn btn-primary" onclick="document.getElementById('imageUpload').click()">Upload Image</button>
+                                <input type="file" id="imageUpload" style="display: none;" onchange="handleFileUpload(event)">
+                            </div>
+
+                            <!-- Right Section: T-shirt Options -->
+                            <div class="col-md-6 right-section position-relative" >
+                                <div class="row" style="position: relative; left: 79px">
+                                    <!-- Card 1 -->
+                                    <div class="col-md-4 mb-3">
+                                        <div class="card" onclick="selectCard(this)">
+                                            <img src="{% static 'assets/media/products/8.png' %}" class="card-img-top" alt="T-shirt 1">
+                                            <div class="card-body">
+                                                <p class="card-text font-weight-bold">T-shirt 1</p>
+                                                <p class="card-date text-muted">Date: 2024-01-01</p>
+                                                <p class="card-url text-primary"><a href="https://example.com/product/1" target="_blank">View Product</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Card 2 -->
+                                    <div class="col-md-4 mb-3">
+                                        <div class="card" onclick="selectCard(this)">
+                                            <img src="{% static 'assets/media/products/9.png' %}" class="card-img-top" alt="T-shirt 2">
+                                            <div class="card-body">
+                                                <p class="card-text font-weight-bold">T-shirt 2</p>
+                                                <p class="card-date text-muted">Date: 2024-02-01</p>
+                                                <p class="card-url text-primary"><a href="https://example.com/product/2" target="_blank">View Product</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Card 3 -->
+                                    <div class="col-md-4 mb-3">
+                                        <div class="card" onclick="selectCard(this)">
+                                            <img src="{% static 'assets/media/products/8.png' %}" class="card-img-top" alt="T-shirt 3">
+                                            <div class="card-body">
+                                                <p class="card-text font-weight-bold">T-shirt 3</p>
+                                                <p class="card-date text-muted">Date: 2024-03-01</p>
+                                                <p class="card-url text-primary"><a href="https://example.com/product/3" target="_blank">View Product</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Card 4 -->
+                                    <div class="col-md-4 mb-3">
+                                        <div class="card" onclick="selectCard(this)">
+                                            <img src="{% static 'assets/media/products/9.png' %}" class="card-img-top" alt="T-shirt 4">
+                                            <div class="card-body">
+                                                <p class="card-text font-weight-bold">T-shirt 4</p>
+                                                <p class="card-date text-muted">Date: 2024-04-01</p>
+                                                <p class="card-url text-primary"><a href="https://example.com/product/4" target="_blank">View Product</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Card 5 -->
+                                    <div class="col-md-4 mb-3">
+                                        <div class="card" onclick="selectCard(this)">
+                                            <img src="{% static 'assets/media/products/8.png' %}" class="card-img-top" alt="T-shirt 5">
+                                            <div class="card-body">
+                                                <p class="card-text font-weight-bold">T-shirt 5</p>
+                                                <p class="card-date text-muted">Date: 2024-05-01</p>
+                                                <p class="card-url text-primary"><a href="https://example.com/product/5" target="_blank">View Product</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Card 6 -->
+                                    <div class="col-md-4 mb-3">
+                                        <div class="card" onclick="selectCard(this)">
+                                            <img src="{% static 'assets/media/products/9.png' %}" class="card-img-top" alt="T-shirt 6">
+                                            <div class="card-body">
+                                                <p class="card-text font-weight-bold">T-shirt 6</p>
+                                                <p class="card-date text-muted">Date: 2024-06-01</p>
+                                                <p class="card-url text-primary"><a href="https://example.com/product/6" target="_blank">View Product</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Card 7 -->
+                                    <div class="col-md-4 mb-3">
+                                        <div class="card" onclick="selectCard(this)">
+                                            <img src="{% static 'assets/media/products/8.png' %}" class="card-img-top" alt="T-shirt 7">
+                                            <div class="card-body">
+                                                <p class="card-text font-weight-bold">T-shirt 7</p>
+                                                <p class="card-date text-muted">Date: 2024-07-01</p>
+                                                <p class="card-url text-primary"><a href="https://example.com/product/7" target="_blank">View Product</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Card 8 -->
+                                    <div class="col-md-4 mb-3">
+                                        <div class="card" onclick="selectCard(this)">
+                                            <img src="{% static 'assets/media/products/9.png' %}" class="card-img-top" alt="T-shirt 8">
+                                            <div class="card-body">
+                                                <p class="card-text font-weight-bold">T-shirt 8</p>
+                                                <p class="card-date text-muted">Date: 2024-08-01</p>
+                                                <p class="card-url text-primary"><a href="https://example.com/product/8" target="_blank">View Product</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Card 9 -->
+                                    <div class="col-md-4 mb-3">
+                                        <div class="card" onclick="selectCard(this)">
+                                            <img src="{% static 'assets/media/products/8.png' %}" class="card-img-top" alt="T-shirt 9">
+                                            <div class="card-body">
+                                                <p class="card-text font-weight-bold">T-shirt 9</p>
+                                                <p class="card-date text-muted">Date: 2024-09-01</p>
+                                                <p class="card-url text-primary"><a href="https://example.com/product/9" target="_blank">View Product</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Try On Button centered at the bottom of the right section -->
+                                <button class="btn btn-primary try-on-button">Try On</button>
+                            </div>
+                        </div>
+                    </div>
+
+        </div>
+        </div>
+        </div>
+    </div>    
+{% endblock content %}
+
+{% block js %}
+<script>
+    // Function to handle file upload change
+    function handleFileUpload(event) {
+        const file = event.target.files[0];
+        if (file) {
+            console.log("Image uploaded:", file.name);
+        }
+    }
+
+    // Function to select only one card at a time
+    function selectCard(selectedCard) {
+        document.querySelectorAll('.card').forEach(card => {
+            card.classList.remove('selected');
+        });
+        selectedCard.classList.add('selected');
+    }
+</script>
+{% endblock js %}

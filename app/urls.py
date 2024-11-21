@@ -1,0 +1,15 @@
+from django.urls import path
+from app.views import *
+
+urlpatterns = [
+    path("", sign_in, name="sign_in"),
+    path("register/", register, name="register"),
+    path("company-registration/", company_registration, name="company-registration"),
+    path("upload-preview/", upload_and_preview, name="upload-preview"),
+    path("list-view/", list_view, name="list-view"),
+    path("users/", users, name="users"),
+    path("history/", history, name="history"),
+    path("graph/", graph, name="graph"),
+    path("upload-appreal/", upload_appreal, name="upload-appreal"),
+    path("emailer/", emailer, name="emailer"),
+]

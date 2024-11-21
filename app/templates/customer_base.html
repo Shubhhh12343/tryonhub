@@ -1,0 +1,268 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %} {% endblock title %}</title>
+   
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'assets/images/ProMT_favicon.png' %}"/>
+   
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--begin::Fonts(mandatory for all pages)-->
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" /> -->
+    <link href="{% static 'assets/plugins/custom/jkanban/jkanban.bundle.css' %}" rel="stylesheet" type="text/css" />
+    <!--end::Fonts-->
+    <!--begin::Vendor Stylesheets(used for this page only)-->
+    <link href="{% static 'assets/plugins/custom/fullcalendar/fullcalendar.bundle.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'assets/plugins/custom/datatables/datatables.bundle.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'assets/plugins/custom/vis-timeline/vis-timeline.bundle.css' %}" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <!--end::Vendor Stylesheets-->
+    <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
+    <link href="{% static 'assets/plugins/global/plugins.bundle.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'assets/css/style.bundle.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'assets/plugins/custom/jkanban/jkanban.bundle.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'assets/jquery.vectormap/jquery-vector.css' %}" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet"  >
+    <!--end::Global Stylesheets Bundle-->
+    <style>
+      @font-face {
+        font-family: 'Baloo Bhai';
+          src: url('{% static 'fonts/BalooBhai2-Regular.ttf' %}?v=20240228') format('truetype');
+      }
+   
+      body {
+          font-family: 'Baloo Bhai', sans-serif;
+      }
+      .fc .fc-popover {
+        position: absolute;
+        text-align: start;
+        z-index: 1;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        width: 250px;
+        max-height: 265px;
+        height: auto; /* Allows the height to adjust based on content */
+        overflow-y: auto; /* Enables scrolling when content exceeds max-height */
+        -webkit-overflow-scrolling: touch; /* Optional, for smooth scrolling on iOS */
+        scrollbar-width: none; /* Hide scrollbar for Firefox */
+        -ms-overflow-style: none; /* Hide scrollbar for IE, Edge */
+    }
+
+    /* Optional: Hide scrollbar for webkit browsers (Chrome, Safari) */
+    .fc .fc-popover::-webkit-scrollbar {
+        display: none;
+}
+      
+      .fc .fc-popover-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        
+      }
+      
+      .fc .fc-popover-title {
+        margin: 0 2px;
+      }
+      
+      .fc .fc-popover-close {
+        cursor: pointer;
+        opacity: 0.65;
+        font-size: 1.1em;
+      }
+    </style>
+
+<!-- <style>
+  @font-face {
+      font-family: 'Soleil';
+      src: url('{% static 'fonts/SoleilLight.otf' %}?v=20240228') format('opentype');
+  }
+
+  body {
+      font-family: 'Soleil', sans-serif;
+  }
+</style> -->
+
+    {% block css %}         
+    
+        
+    {% endblock css %}
+
+</head>
+
+
+<body id="kt_app_body" data-kt-app-layout="dark-sidebar" data-kt-app-header-fixed="true"
+	data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-hoverable="false"
+	data-kt-app-sidebar-push-header="true" data-kt-app-sidebar-push-toolbar="true"
+	data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true" class="app-default" data-kt-app-sidebar-minimize="on">
+	<!--begin::Theme mode setup on page load-->
+    {% include 'customer_navbar.html' %}
+    
+
+  <!--begin::Scrolltop-->
+  <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
+    <i>
+          <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/keenthemes/metronic/docs/core/html/src/media/icons/duotune/arrows/arr073.svg-->
+          <span class="svg-icon svg-icon-muted svg-icon-2">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect opacity="0.5" x="13" y="6" width="13" height="2" rx="1" transform="rotate(90 13 6)" fill="currentColor"/>
+              <path d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z" fill="currentColor"/>
+            </svg>
+          </span>
+          <!--end::Svg Icon-->
+      </i>
+  </div>
+  <!--end::Scrolltop-->
+
+    {% block content %}
+
+    {% endblock content %}
+
+    <script>var hostUrl = "assets/";</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <!--begin::Global Javascript Bundle(mandatory for all pages)-->
+    <script src="{% static 'assets/plugins/global/plugins.bundle.js' %}"></script>
+    <script src="{% static 'assets/js/scripts.bundle.js' %}"></script>
+    <!--end::Global Javascript Bundle-->
+    <!--begin::Vendors Javascript(used for this page only)-->
+    {% comment %} <script src="{% static 'assets/plugins/custom/fullcalendar/fullcalendar.bundle.js' %}"></script> {% endcomment %}
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/radar.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/geodata/continentsLow.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/geodata/usaLow.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZonesLow.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZoneAreasLow.js"></script>
+    <script src="{% static 'assets/plugins/custom/datatables/datatables.bundle.js' %}"></script>
+    <!-- <script src="{% static 'assets/plugins/custom/vis-timeline/vis-timeline.bundle.js' %}"></script> -->
+    <script src="{% static 'assets/plugins/custom/jkanban/jkanban.bundle.js' %}"></script>
+    <!--end::Vendors Javascript-->
+    <!--begin::Custom Javascript(used for this page only)-->
+    <script src="{% static 'assets/js/custom/apps/user-management/users/list/table.js' %}"></script>
+    <!-- <script src="{% static 'assets/js/custom/apps/user-management/users/list/export-users.js' %}"></script> -->
+    <!-- <script src="{% static 'assets/js/custom/apps/user-management/users/list/add.js' %}"></script> -->
+
+    <script src="{% static 'assets/js/widgets.bundle.js' %}"></script>
+    <script src="{% static 'assets/js/custom/widgets.js' %}"></script>
+    <!-- <script src="{% static 'assets/js/update-user.js' %}"></script> -->
+    <!-- <script src="{% static 'assets/js/custom/sample.js' %}"></script> -->
+    <script src="{% static 'assets/js/custom/apps/chat/chat.js' %}"></script>
+    <script src="{% static 'assets/js/custom/utilities/modals/upgrade-plan.js' %}"></script>
+    <script src="{% static 'assets/js/custom/utilities/modals/new-target.js' %}"></script>
+    <script src="{% static 'assets/js/custom/utilities/modals/users-search.js' %}"></script>
+    <script src="{% static 'assets/js/custom/utilities/modals/create-app.js' %}"></script>
+    <!-- <script src="{% static 'assets/js/custom/apps/customers/list/export.js' %}"></script> -->
+    <script src="{% static 'assets/js/custom/apps/customers/list/list.js' %}"></script>
+    <!-- <script src="{% static 'assets/js/custom/apps/customers/add.js' %}"></script> -->
+    <!-- <script src="{% static 'assets/js/custom/utilities/modals/new-target.js' %}"></script> -->
+    <script src="{% static 'assets/js/custom/utilities/modals/users-search.js' %}"></script>
+    <!--end::Custom Javascript-->
+    <!--end::Javascript-->
+    <!-- meeting-page js -->
+    <!-- <script src="{% static 'assets/js/custom/pages/careers/apply.js' %}"></script> -->
+    <!-- <script src="{% static 'assets/js/custom/apps/projects/targets/targets.js' %}"></script> -->
+    <script src="{% static 'assets/plugins/custom/fullcalendar/fullcalendar.bundle.js' %}"></script>
+    <script src="{% static 'assets/js/custom/apps/calendar/calendar.js' %}"></script>
+
+    <!--users page-->
+    <script src="{% static 'assets/plugins/custom/formrepeater/formrepeater.bundle.js' %}"></script>
+    <!-- <script src="{% static 'assets/js/custom/apps/ecommerce/catalog/save-product.js' %}"></script> -->
+    <!-- <script src="{% static 'assets/js/thread.js' %}"></script> -->
+    <script src="{% static 'assets/js/custom/apps/user-management/roles/view/view.js' %}"></script>
+    <!-- <script src="{% static 'assets/js/custom/apps/user-management/roles/view/update-role.js' %}"></script> -->
+    <script src="{% static 'assets/js/custom/apps/file-manager/list.js' %}"></script>
+    <!-- <script src="{% static 'assets/js/custom/apps/inbox/compose.js' %}"></script> -->
+    <script src="{% static 'assets/plugins/custom/jkanban/jkanban.bundle.js' %}"></script>
+		<script src="{% static 'assets/js/custom/apps/projects/list/list.js' %}"></script>
+    <!-- <script src="{% static 'assets/js/custom/apps/projects/targets/targets.js' %}"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link href="{% static 'assets/css/style.bundle.css' %}" rel="stylesheet" type="text/css"/>
+    <script src="{% static 'assets/js/scripts.bundle.js' %}"></script>
+    <script src="{% static 'assets/plugins/custom/formrepeater/formrepeater.bundle.js' %}"></script>
+    
+    <script type="text/javascript">
+      $(document).ready(function() {
+        const loadingEl = document.createElement("div");
+        document.body.prepend(loadingEl);
+        loadingEl.classList.add("page-loader");
+        loadingEl.classList.add("flex-column");
+        loadingEl.innerHTML = `
+          <span class="spinner-border text-primary" role="status"></span>
+          <span class="text-muted fs-6 fw-semibold mt-5">Loading...</span>
+        `;
+        KTApp.showPageLoading();
+    
+        setTimeout(function() {
+          KTApp.hidePageLoading();
+          loadingEl.remove();
+        }, 400);
+      });
+      </script>
+    <script>
+      var alertBoxes = document.querySelectorAll(".alert");
+      alertBoxes.forEach(function (alertBox) {
+        // Set a timeout to remove the alert box after 3 seconds
+        setTimeout(function () {
+          alertBox.remove();
+        }, 3000);
+      });
+    </script>
+    <script>
+      {% comment %} function showNotification(title, options) {
+          // Check if the browser supports the Notification API
+          if ("Notification" in window) {
+            // Request permission to display notifications
+            Notification.requestPermission().then(function (permission) {
+              if (permission === "granted") {
+                // If permission is granted, display the notification
+                var notification = new Notification(title, options);
+                console.log(notification, 'notification');
+              }
+            });
+          } else {
+            // Fallback for browsers that do not support notifications
+            console.log("This browser does not support desktop notification");
+          }
+        }
+        
+        // Function to show notification every minute
+        function showNotificationEveryMinute() {
+          // Usage example:
+          showNotification("New Message", {
+            body: "You have a new message from John Doe.",
+            icon: "path/to/icon.png"
+          });
+        } {% endcomment %}
+        
+        // Call showNotificationEveryMinute function every minute (60,000 milliseconds)
+        {% comment %} setInterval(showNotificationEveryMinute, 60000); {% endcomment %}
+      
+      </script>
+
+
+<script>
+    jQuery(document).ready(function($) {
+        $("#project-select").on("change", function(event) {
+            window.location.href = window.location.origin + "/new-project-tasks/" + $(this).val();
+        });
+    });
+</script>
+    
+    
+    {% block js %}
+    
+    {% endblock js %}
+
+
+</body>
+</html>

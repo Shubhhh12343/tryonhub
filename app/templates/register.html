@@ -1,0 +1,518 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<!--begin::Head-->
+	<head>
+		<title>Register | TryOnHub</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="shortcut icon" href="{% static 'assets/images/ProMT_favicon.png' %}"/>
+		<!--begin::Fonts(mandatory for all pages)-->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
+		<!--end::Fonts-->
+		<!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
+		<link href="{% static 'assets/plugins/global/plugins.bundle.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/css/style.bundle.css' %}" rel="stylesheet" type="text/css" />
+		<script src="{% static 'assets/plugins/global/plugins.bundle.js' %}"></script>
+
+
+		
+		<style>
+			.error-message {
+			position: relative;
+			display: block;
+			}
+
+			#error-clear {
+			position: absolute;
+			top: 0;
+			right: 0;
+			cursor: pointer;
+			}
+
+			#error-clear:hover {
+			color: red;
+			}
+
+			@font-face {
+				font-family: 'Baloo Bhai';
+				src: url('{% static 'fonts/BalooBhai2-Regular.ttf' %}?v=20240228') format('truetype');
+			}
+		
+			body {
+				font-family: 'Baloo Bhai', sans-serif;
+			}
+
+	
+			/* Additional styles to ensure consistency */
+		
+
+		</style>
+
+		<style>
+						.input-container {
+					position: relative;
+					display: inline-block;
+				}
+			/* Styling for the floating label */
+			.floating-label {
+				position: absolute;
+				top: 50%;
+				left: 10px;
+				transform: translateY(-50%);
+				transition: 0.3s ease;
+				color: #aaa;
+				pointer-events: none; /* Ensures the label doesn't interfere with input clicks */
+				opacity: 0; /* Initially hide the label */
+			}
+
+			/* Show the label when input is focused or not empty */
+			.input-container input:focus + .floating-label,
+			.input-container input:not(:placeholder-shown) + .floating-label {
+				top: -1px;
+				left: 10px;
+				font-size: 12px;
+				color:  var(--bs-body-bg);
+				opacity: 1; /* Show the label when input is focused or not empty */
+				background-color: var(--bs-body-bg);
+				padding: 0 5px;
+				font-size: 14px;
+			}
+
+			/* Additional styling for input and container */
+			.input-container input {
+				width: 100%;
+				padding: 10px;
+			
+				border-radius: 4px;
+				background-color: transparent;
+				transition: border-color 0.3s ease;
+			}
+
+			/* Focus state for input */
+			.input-container input:focus {
+
+				background-color:  var(--bs-body-bg);
+			
+			}
+
+			/* Placeholder styling */
+			.input-container input::placeholder {
+				transition: opacity 0.7s ease;
+			}
+
+			/* Fade out placeholder on focus */
+			.input-container input:focus::placeholder {
+				opacity: 0;
+			}
+
+			/* Styling for the toggle button */
+			.btn-icon {
+				cursor: pointer;
+			}
+
+			/* Ensure the input field background color stays white when autofilled */
+			input:-webkit-autofill {
+				-webkit-box-shadow: 0 0 0px 1000px  !important; /* Ensures background stays white */
+				box-shadow: 0 0 0px 1000px  var(--bs-body-bg) inset !important; /* Ensures background stays white */
+				transition: background-color 5000s ease-in-out 0s; /* Prevents sudden color changes */
+				-webkit-text-fill-color: grey !important;
+				background-color: transparent; /* Ensures text color stays consistent */
+			}
+
+		</style>
+		<!--end::Global Stylesheets Bundle-->
+	</head>
+	<!--end::Head-->
+	<!--begin::Body-->
+	<body id="kt_body" class="app-blank">
+		<!--begin::Theme mode setup on page load-->
+		<script>var defaultThemeMode = "light"; var themeMode; if ( document.documentElement ) { if ( document.documentElement.hasAttribute("data-bs-theme-mode")) { themeMode = document.documentElement.getAttribute("data-bs-theme-mode"); } else { if ( localStorage.getItem("data-bs-theme") !== null ) { themeMode = localStorage.getItem("data-bs-theme"); } else { themeMode = defaultThemeMode; } } if (themeMode === "system") { themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; } document.documentElement.setAttribute("data-bs-theme", themeMode); };</script>
+		<!--end::Theme mode setup on page load-->
+		<!--begin::Root-->
+		<div class="d-flex flex-column flex-root" id="kt_app_root">
+			<!--begin::Authentication - Sign-in -->
+			<div class="d-flex flex-column flex-lg-row flex-column-fluid">
+				<!--begin::Body-->
+				<div class="d-flex flex-column flex-lg-row-fluid w-lg-50 p-10 order-2 order-lg-1">
+					<!--begin::Form-->
+					<div class="d-flex flex-center flex-column flex-lg-row-fluid">
+						<!--begin::Wrapper-->
+						<div class="w-lg-400px w-275px py-md-0 py-20">
+
+							<!--begin::Form-->
+							<form class="form w-100" id="kt_sign_in_form"  method="POST">
+                                {% csrf_token %}
+								<!--begin::Heading-->
+								<div class="text-center mb-6">
+									<!--begin::Title-->
+									<h1 class="text-dark fw-bolder mb-3">Sign up</h1>
+									<!--end::Title-->
+									<!--begin::Subtitle-->
+									<div class="text-gray-600 fw-semibold fs-6">Welcome to TryOnHub</div>
+									<!--end::Subtitle=-->
+								</div>
+								<!--begin::Heading-->
+								<div class="fv-row mb-3">
+									<span id="password-error" class="error-message"></span>
+								</div>
+								<!--begin::Input group=-->
+								<div class="fv-row mb-8">
+									<!--begin::Name-->
+									<div class="input-container col-12">
+										<input type="text" placeholder="Enter name" name="name" autocomplete="off" class="form-control"  />
+										<label for="name" class="floating-label px-2 text-primary">Enter name</label>
+									</div>
+									<!--end::Name-->
+								</div>
+								<!--end::Input group=-->
+								<!--begin::Input group=-->
+								<div class="fv-row mb-8">
+									<!--begin::Email-->
+									<div class="input-container col-12">
+										<input type="text" placeholder="Enter email" name="email" autocomplete="off" class="form-control"  />
+										<label for="email" class="floating-label px-2 text-primary">Enter email</label>
+									</div>
+									<!--end::Email-->
+								</div>
+								<!--end::Input group=-->
+								<!--begin::Input group=-->
+								<div class="fv-row mb-8">
+									<!--begin::Otp-->
+									<div class="input-container col-12">
+										<input type="text" placeholder="Enter OTP" name="otp" autocomplete="off" class="form-control"  />
+										<label for="otp" class="floating-label px-2 text-primary">Enter OTP</label>
+									</div>
+									<!--end::Otp-->
+								</div>
+								<!--end::Input group=-->
+								<div class="fv-row mb-3">
+									<!--begin::Password-->
+									<div class="input-container position-relative mb-3 col-12" data-kt-password-meter="true">
+										<input class="form-control" type="password" placeholder="Enter password" name="password" autocomplete="off" />
+										<label for="password" class="floating-label px-2 text-primary">Enter password</label>
+										<span class="btn btn-sm btn-icon position-absolute translate-middle  end-0 me-n2" data-kt-password-meter-control="visibility" style="position: absolute; top: 25px;">
+											<i class="bi bi-eye-slash fs-2"></i>
+											<i class="bi bi-eye fs-2 d-none"></i>
+										</span>
+									</div>
+									<!--end::Password-->
+								</div>
+								<!--end::Input group=-->
+							
+								<!--begin::Submit button-->
+								<div class="d-grid mb-10">
+									<button type="submit" id="kt_sign_in_submit" class="btn btn-primary">
+										<!--begin::Indicator label-->
+										<span class="indicator-label">Log In</span>
+										<!--end::Indicator label-->
+										<!--begin::Indicator progress-->
+										<span class="indicator-progress">Please wait...
+										<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+										<!--end::Indicator progress-->
+									</button>
+								</div>
+								<!--end::Submit button-->
+                                <!--begin::Sign up-->
+								<div class="text-gray-500 text-center fw-semibold fs-6">Already have an Account?
+                                    <a href="{% url 'sign_in' %}" class="link-primary fw-semibold">Sign in</a></div>
+                                    <!--end::Sign up-->
+							</form>
+							<!--end::Form-->
+						</div>
+						<!--end::Wrapper-->
+					</div>
+					<!--end::Form-->
+				</div>
+				<!--end::Body-->
+				{% load static %}
+				<!--begin::Aside-->
+				<div class="d-flex flex-lg-row-fluid w-lg-50 bgi-size-cover bgi-position-center bg-light order-1 order-lg-2 d-md-flex d-sm-none d-none">
+					<!--begin::Content-->
+					<div class="d-flex flex-column flex-center py-7 py-lg-15 px-5 px-md-15 w-100">
+						<!--begin::Logo-->
+						<a href="" class="mb-0 mb-lg-6">
+							<!-- <img alt="Logo" src="{% static 'assets/images/logos/ProMT-logo.png' %}" class="h-60px h-lg-60px" /> -->
+						</a>
+						<!--end::Logo-->
+						<!--begin::Image-->
+						<img class="d-none d-lg-block mx-auto w-450px w-md-50 w-xl-450px mb-10 mb-lg-15 d-block" src="{% static 'assets/media/illustrations/sketchy-1/2.png' %}" alt="" />
+						<!--end::Image-->
+					</div>
+					<!--end::Content-->
+				</div>
+				<!--end::Aside-->
+			</div>
+			<!--end::Authentication - Sign-in-->
+		</div>
+		<!--end::Root-->
+		<!--begin::Javascript-->
+		<script>var hostUrl = "assets/";</script>
+		<!--begin::Global Javascript Bundle(mandatory for all pages)-->
+		<script src="{% static 'assets/plugins/global/plugins.bundle.js' %}"></script>
+		<script src="{% static 'assets/js/scripts.bundle.js' %}"></script>
+		<!--end::Global Javascript Bundle-->
+		<!--begin::Custom Javascript(used for this page only)-->
+<script>
+"use strict";
+
+// Class definition
+var KTSigninGeneral = function() {
+    // Elements
+    var form;
+    var submitButton;
+    var validator;
+
+    // Handle form
+    var handleValidation = function(e) {
+        // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
+        validator = FormValidation.formValidation(
+			form,
+			{
+				fields: {					
+					'email': {
+                        validators: {
+                            regexp: {
+                                regexp: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                                message: 'Enter a valid email address',
+                            },
+							notEmpty: {
+								message: 'Email address is required'
+							}
+						}
+					},
+                    'password': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Password is required'
+                            },
+                        }
+                    } 
+				},
+				plugins: {
+					trigger: new FormValidation.plugins.Trigger(),
+					bootstrap: new FormValidation.plugins.Bootstrap5({
+                        rowSelector: '.fv-row',
+                        eleInvalidClass: '',  // comment to enable invalid state icons
+                        eleValidClass: '' // comment to enable valid state icons
+                    })
+				}
+			}
+		);	
+    }
+
+    var handleSubmitDemo = function(e) {
+        // Handle form submit
+        submitButton.addEventListener('click', function (e) {
+            // Prevent button default action
+            e.preventDefault();
+
+            // Validate form
+            validator.validate().then(function (status) {
+                if (status == 'Valid') {
+					var email = form.querySelector('[name="email"]').value
+					var password = form.querySelector('[name="password"]').value
+					console.log(email,"email")
+					$.ajax({
+						method:"POST",
+						url:"/check-credential/",
+						data:{
+							csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
+							user_email:email,
+							user_password:password,
+						},
+						success: function(response){
+							console.log(response)
+							if (response.status == 200){
+								submitButton.setAttribute('data-kt-indicator', 'on');
+
+								// Disable button to avoid multiple click 
+								submitButton.disabled = true;
+								
+
+								// Simulate ajax request
+								setTimeout(function() {
+									// Hide loading indication
+									submitButton.removeAttribute('data-kt-indicator');
+
+									// Enable button
+									submitButton.disabled = false;
+
+									// Show message popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
+									
+								form.submit()
+								}, 2000);
+							}
+							else if(response.status === 400){
+								const passwordError = document.getElementById("password-error");
+								toastr.options = {
+									"closeButton": false,
+									"debug": false,
+									"newestOnTop": false,
+									"progressBar": false,
+									"positionClass": "toastr-top-right",
+									"preventDuplicates": false,
+									"onclick": null,
+									"showDuration": "300",
+									"hideDuration": "1000",
+									"timeOut": "5000",
+									"extendedTimeOut": "1000",
+									"showEasing": "swing",
+									"hideEasing": "linear",
+									"showMethod": "fadeIn",
+									"hideMethod": "fadeOut"
+								  };
+								  
+								  toastr.error("Incorrect Email or Password");;
+								setTimeout(() => {
+									passwordError.innerHTML = "";
+								}, 5000);
+							}
+						}
+					});
+                    // Show loading indication
+                       						
+                } else {
+                    // Show error popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
+                }
+            });
+		});
+    }
+
+    var handleSubmitAjax = function(e) {
+        // Handle form submit
+        submitButton.addEventListener('click', function (e) {
+            // Prevent button default action
+            e.preventDefault();
+
+            // Validate form
+            validator.validate().then(function (status) {
+                if (status == 'Valid') {
+                    // Hide loading indication
+                    submitButton.removeAttribute('data-kt-indicator');
+
+                    // Enable button
+                    submitButton.disabled = false;
+                                        
+                    // Check axios library docs: https://axios-http.com/docs/intro 
+                    axios.post('/your/ajax/login/url', {
+                        email: form.querySelector('[name="email"]').value, 
+                        password: form.querySelector('[name="password"]').value 
+                    }).then(function (response) {
+                        if (response) {
+                            form.querySelector('[name="email"]').value= "";
+                            form.querySelector('[name="password"]').value= "";  
+
+                            const redirectUrl = form.getAttribute('data-kt-redirect-url');
+                            
+                            if (redirectUrl) {
+                                location.href = redirectUrl;
+                            }
+                        } else {
+                            // Show error popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
+                            Swal.fire({
+                                text: "Sorry, the email or password is incorrect, please try again.",
+                                icon: "error",
+                                buttonsStyling: false,
+                                confirmButtonText: "OK",
+                                customClass: {
+                                    confirmButton: "btn btn-primary"
+                                }
+                            });
+                        }
+                    }).catch(function (error) {
+                        Swal.fire({
+                            text: "Sorry, looks like there are some errors detected, please try again.",
+                            icon: "error",
+                            buttonsStyling: false,
+                            confirmButtonText: "OK",
+                            customClass: {
+                                confirmButton: "btn btn-primary"
+                            }
+                        });
+                    });
+                } else {
+                    // Show error popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
+                    Swal.fire({
+                        text: "Sorry, looks like there are some errors detected, please try again.",
+                        icon: "error",
+                        buttonsStyling: false,
+                        confirmButtonText: "OK",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    });
+                }
+            });
+		});
+    }
+
+    // Public functions
+    return {
+        // Initialization
+        init: function() {
+            form = document.querySelector('#kt_sign_in_form');
+            submitButton = document.querySelector('#kt_sign_in_submit');
+            
+            handleValidation();
+            handleSubmitDemo(); // used for demo purposes only, if you use the below ajax version you can uncomment this one
+            //handleSubmitAjax(); // use for ajax submit
+        }
+    };
+}();
+
+// On document ready
+KTUtil.onDOMContentLoaded(function() {
+    KTSigninGeneral.init();
+});
+
+</script>
+<script>
+	  var alertBoxes = document.querySelectorAll('.alert');
+  alertBoxes.forEach(function(alertBox) {
+    // Set a timeout to remove the alert box after 3 seconds
+    setTimeout(function() {
+      alertBox.remove();
+    }, 3000);
+  });
+</script>
+		<!--end::Custom Javascript-->
+		{% if messages %}
+{% for message in messages %}
+    {% if message.tags == "success" %}
+    <script  type=text/javascript>
+        var msg = "{{message}}";
+        toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toastr-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+        };
+        $(document).ready(function () {
+            toastr.success(msg);
+        })
+    </script>
+    {% else %}
+    <script  type=text/javascript>
+        var msg = "{{message}}";
+        toastr.error(msg);
+    </script>
+    {% endif %}
+{% endfor %}
+{% endif %}
+
+		<!--end::Javascript-->
+	</body>
+	<!--end::Body-->
+</html>

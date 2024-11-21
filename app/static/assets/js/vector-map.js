@@ -1,0 +1,60 @@
+!function(a){
+    "use strict";
+    function n(){}n.prototype.init=function(){
+        a("#india-vectormap").vectorMap({
+            map:"in_mill_en",
+            backgroundColor:"transparent",
+            regionStyle:{initial:{fill:"#e9e9ef"}},
+            markerStyle:{
+                initial:{r:4,fill:"#1c84ee","fill-opacity":.9,stroke:"#fff","stroke-width":7,"stroke-opacity":.4},
+                hover:{stroke:"#fff","fill-opacity":1,"stroke-width":1.5}
+            },
+            backgroundColor:"transparent",
+            markers:[
+                {latLng:[12.56,92.82],name:"Andaman and Nicobar Islands"},
+                {latLng:[16.11,79.14],name:"Andhra Pradesh"},
+                {latLng:[28.18,94.57],name:"Arunachal Pradesh"},
+                {latLng:[26.21,92.99],name:"Assam"},
+                {latLng:[25.60,85.60],name:"Bihar"},
+                {latLng:[30.76,76.76],name:"Chandigarh"},
+                {latLng:[21.38,81.56],name:"Chhattisgarh"},
+                {latLng:[20.19,73.00],name:"Dadra and Nagar Haveli"},
+                {latLng:[20.40,72.85],name:"Daman and Diu"},
+                {latLng:[28.62,77.14],name:"Delhi"},
+                {latLng:[15.31,74.06],name:"Goa"},
+                {latLng:[23.16,71.76],name:"Gujarat"},
+                {latLng:[29.26,76.33],name:"Haryana"},
+                {latLng:[31.84,77.34],name:"Himachal Pradesh"},
+                {latLng:[33.83,76.55],name:"Jammu and Kashmir"},
+                {latLng:[23.20,84.94],name:"Jharkhand"},
+                {latLng:[14.26,75.76],name:"Karnataka"},
+                {latLng:[10.27,76.68],name:"Kerala"},
+                {latLng:[],name:""},
+                {latLng:[],name:""},
+                {latLng:[23.47,77.95],name:"Madhya Pradesh"},
+                {latLng:[19.39,75.41],name:"Maharashtra"},
+                {latLng:[24.74,93.99],name:"Manipur"},
+                {latLng:[25.47,91.30],name:"Meghalaya"},
+                {latLng:[23.52,92.82],name:"Mizoram"},
+                {latLng:[26.01,94.53],name:"Nagaland"},
+                {latLng:[20.79,84.72],name:"Odisha"},
+                {latLng:[10.93,79.83],name:"Puducherry"},
+                {latLng:[30.71,75.45],name:"Punjab"},
+                {latLng:[26.66,73.43],name:"Rajasthan"},
+                {latLng:[27.52,88.44],name:"Sikkim"},
+                {latLng:[11.22,78.53],name:"Tamil Nadu"},
+                {latLng:[],name:""},
+                {latLng:[23.69,91.61],name:"Tripura"},
+                {latLng:[26.70,80.46],name:"Uttar Pradesh"},
+                {latLng:[30.06,79.27],name:"Uttarakhand"},
+                {latLng:[22.83,87.62],name:"West Bengal"},
+            ]
+        }),
+        a("#australia-vectormap").vectorMap({map:"au_mill_en",backgroundColor:"transparent",regionStyle:{initial:{fill:"#1c84ee"}}}),
+        a("#chicago-vectormap").vectorMap({map:"us-il-chicago_mill_en",backgroundColor:"transparent",regionStyle:{initial:{fill:"#1c84ee"}}}),
+        a("#uk-vectormap").vectorMap({map:"uk_mill_en",backgroundColor:"transparent",regionStyle:{initial:{fill:"#1c84ee"}}}),
+        a("#canada-vectormap").vectorMap({map:"ca_lcc_en",backgroundColor:"transparent",regionStyle:{initial:{fill:"#1c84ee"}}})
+    },
+    a.VectorMap=new n,
+    a.VectorMap.Constructor=n
+}(window.jQuery),function(){"use strict";window.jQuery.VectorMap.init()}();
