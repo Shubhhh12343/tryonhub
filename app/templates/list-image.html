@@ -52,25 +52,91 @@
             <!--end::Toolbar container-->
         </div>
         <!--end::Toolbar-->
+        <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+            <!--begin::Toolbar container-->
+            <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+                <!--begin::Page title-->
+                <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+                    <!--begin::Title-->
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Try on</h1>
+                    <!--end::Title-->
+                    <!--begin::Breadcrumb-->
+                    <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+                        <!--begin::Item-->
+                        <li class="breadcrumb-item text-muted">
+                            <a href="../../demo1/dist/index.html" class="text-muted text-hover-primary">Home</a>
+                        </li>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <li class="breadcrumb-item">
+                            <span class="bullet bg-gray-400 w-5px h-2px"></span>
+                        </li>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <li class="breadcrumb-item text-muted">Try on</li>
+                        <!--end::Item-->
+                    </ul>
+                    <!--end::Breadcrumb-->
+                </div>
+                <!--end::Page title-->
+                
+            </div>
+            <!--end::Toolbar container-->
+        </div>
 
         <!--begin::Content-->
-        <div id="kt_app_content" class="app-content flex-column-fluid">
+        <div id="kt_app_content" class="app-content flex-column-fluid ">
             <!--begin::Content container-->
             <div id="kt_app_content_container" class="app-container container-xxl">
               
 
-            <div class="row gy-5 g-xl-10 mt-5">
+            <div class="row gy-5 g-xl-10">
                 <!--begin::Col-->
-                <div class="col-xl-6 mb-xl-10">
+                <div class="col-xl-4 mb-xl-10">
                 <!--begin::Table widget 2-->
-                <div class="card h-md-100 h-xl-600px">
+                <div class="card h-md-100 h-xl-530px">
                 <!--begin::Header-->
                 
                 <!--end::Header-->
                 <!--begin::Body-->
                 <div class="card-body pt-2 text-center d-flex align-items-center justify-content-center">
 
-                    <button class="btn btn-primary">upload image</button>
+                    <div class="fv-row mb-7">
+                        <!--begin::Label-->
+                        <!--end::Label-->
+                        <!--begin::Image placeholder-->
+                        <style>.image-input-placeholder { background-image: url('{% static "assets/media/svg/files/blank-image.svg" %}'); } [data-bs-theme="dark"] .image-input-placeholder { background-image: url('assets/media/svg/files/blank-image-dark.svg'); }</style>
+                        <!--end::Image placeholder-->
+                        <!--begin::Image input-->
+                        <div class="image-input image-input-outline image-input-placeholder" data-kt-image-input="true">
+                            <!--begin::Preview existing avatar-->
+                            <div class="image-input-wrapper w-200px h-200px" style="background-image: url( {% static "assets/media/avatars/300-6.jpg)" %};"></div>
+                            <!--end::Preview existing avatar-->
+                            <!--begin::Label-->
+                            <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
+                                <i class="bi bi-pencil-fill fs-7"></i>
+                                <!--begin::Inputs-->
+                                <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+                                <input type="hidden" name="avatar_remove" />
+                                <!--end::Inputs-->
+                            </label>
+                            <!--end::Label-->
+                            <!--begin::Cancel-->
+                            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
+                                <i class="bi bi-x fs-2"></i>
+                            </span>
+                            <!--end::Cancel-->
+                            <!--begin::Remove-->
+                            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
+                                <i class="bi bi-x fs-2"></i>
+                            </span>
+                            <!--end::Remove-->
+                        </div>
+                        <!--end::Image input-->
+                        <!--begin::Hint-->
+                        <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
+                        <!--end::Hint-->
+                    </div>
                 <!--begin::Nav-->
               
                 <!--begin::Tab Content-->
@@ -84,30 +150,161 @@
                
                 <!--end::Col-->
                 <!--begin::Col-->
-                <div class="col-xl-6 mb-5 mb-xl-10">
-                <!--begin::Chart widget 4-->
-                <div class="card card-flush overflow-hidden h-md-100">
-
-
-                <!--begin::Header-->
-              
-                <!--end::Header-->
-                <!--begin::Card body-->
-                <div class="card-body d-flex justify-content-between flex-column pb-1 px-0">
-
-                   
-                <!--begin::Info-->
-                
-                <!--end::Info-->
-                <!--begin::Chart-->
-                <!--end::Chart-->
+                <div class="col-xl-8 mb-5 mb-xl-10">
+                 <!--begin::Layout-->
+                 <div class="d-flex flex-column flex-xl-row">
+                    <!--begin::Content-->
+                    <div class="d-flex flex-row-fluid me-xl-9 mb-10 mb-xl-0">
+                        <!--begin::Pos food-->
+                        <div class="card card-flush card-p-0 bg-transparent border-0">
+                            <!--begin::Body-->
+                            <div class="card-body">
+                                
+                                <!--begin::Tab Content-->
+                                <div class="tab-content">
+                 
+                                    <div class="tab-pane fade show active" id="kt_pos_food_content_1">
+                                        <!--begin::Wrapper-->
+                                        <div class="row row-cols-4 g-10">
+                                            <!--begin::Card-->
+                                            <div class="col">
+                                                <div class="card card-flush p-6 pb-5 h-200px w-200px">
+                                                    <!--begin::Body-->
+                                                    <div class="card-body text-center">
+                                                        <!--begin::Food img-->
+                                                        <img src="{% static 'assets/media/avatars/300-1.jpg' %}" class="rounded-3 mb-4 w-100px h-150px w-xxl-150px" alt="" />
+                                                        <!--end::Food img-->
+                                                    </div>
+                                                    <!--end::Body-->
+                                                </div>
+                                            </div>
+                                            <!--end::Card-->
+                                    
+                                            <!--begin::Card-->
+                                            <div class="col">
+                                                <div class="card card-flush p-6 pb-5 h-200px w-200px">
+                                                    <!--begin::Body-->
+                                                    <div class="card-body text-center">
+                                                        <!--begin::Food img-->
+                                                        <img src="{% static 'assets/media/avatars/300-2.jpg' %}" class="rounded-3 mb-4 w-100px h-150px w-xxl-150px" alt="" />
+                                                        <!--end::Food img-->
+                                                    </div>
+                                                    <!--end::Body-->
+                                                </div>
+                                            </div>
+                                            <!--end::Card-->
+                                    
+                                            <!--begin::Card-->
+                                            <div class="col">
+                                                <div class="card card-flush p-6 pb-5 h-200px w-200px">
+                                                    <!--begin::Body-->
+                                                    <div class="card-body text-center">
+                                                        <!--begin::Food img-->
+                                                        <img src="{% static 'assets/media/avatars/300-3.jpg' %}" class="rounded-3 mb-4 w-100px h-150px w-xxl-150px" alt="" />
+                                                        <!--end::Food img-->
+                                                    </div>
+                                                    <!--end::Body-->
+                                                </div>
+                                            </div>
+                                            <!--end::Card-->
+                                    
+                                            <!--begin::Card-->
+                                            <div class="col">
+                                                <div class="card card-flush p-6 pb-5 h-200px w-200px">
+                                                    <!--begin::Body-->
+                                                    <div class="card-body text-center">
+                                                        <!--begin::Food img-->
+                                                        <img src="{% static 'assets/media/avatars/300-4.jpg' %}" class="rounded-3 mb-4 w-100px h-150px w-xxl-150px" alt="" />
+                                                        <!--end::Food img-->
+                                                    </div>
+                                                    <!--end::Body-->
+                                                </div>
+                                            </div>
+                                            <!--end::Card-->
+                                        </div>
+                                        <!--end::Wrapper-->
+                                    </div>
+                                    <div class="tab-pane fade show active mt-10" id="kt_pos_food_content_1">
+                                        <!--begin::Wrapper-->
+                                        <div class="row row-cols-4 g-10">
+                                            <!--begin::Card-->
+                                            <div class="col">
+                                                <div class="card card-flush p-6 pb-5 h-200px w-200px">
+                                                    <!--begin::Body-->
+                                                    <div class="card-body text-center">
+                                                        <!--begin::Food img-->
+                                                        <img src="{% static 'assets/media/avatars/300-1.jpg' %}" class="rounded-3 mb-4 w-100px h-150px w-xxl-150px" alt="" />
+                                                        <!--end::Food img-->
+                                                    </div>
+                                                    <!--end::Body-->
+                                                </div>
+                                            </div>
+                                            <!--end::Card-->
+                                    
+                                            <!--begin::Card-->
+                                            <div class="col">
+                                                <div class="card card-flush p-6 pb-5 h-200px w-200px">
+                                                    <!--begin::Body-->
+                                                    <div class="card-body text-center">
+                                                        <!--begin::Food img-->
+                                                        <img src="{% static 'assets/media/avatars/300-2.jpg' %}" class="rounded-3 mb-4 w-100px h-150px w-xxl-150px" alt="" />
+                                                        <!--end::Food img-->
+                                                    </div>
+                                                    <!--end::Body-->
+                                                </div>
+                                            </div>
+                                            <!--end::Card-->
+                                    
+                                            <!--begin::Card-->
+                                            <div class="col">
+                                                <div class="card card-flush p-6 pb-5 h-200px w-200px">
+                                                    <!--begin::Body-->
+                                                    <div class="card-body text-center">
+                                                        <!--begin::Food img-->
+                                                        <img src="{% static 'assets/media/avatars/300-3.jpg' %}" class="rounded-3 mb-4 w-100px h-150px w-xxl-150px" alt="" />
+                                                        <!--end::Food img-->
+                                                    </div>
+                                                    <!--end::Body-->
+                                                </div>
+                                            </div>
+                                            <!--end::Card-->
+                                    
+                                            <!--begin::Card-->
+                                            <div class="col">
+                                                <div class="card card-flush p-6 pb-5 h-200px w-200px">
+                                                    <!--begin::Body-->
+                                                    <div class="card-body text-center">
+                                                        <!--begin::Food img-->
+                                                        <img src="{% static 'assets/media/avatars/300-4.jpg' %}" class="rounded-3 mb-4 w-100px h-150px w-xxl-150px" alt="" />
+                                                        <!--end::Food img-->
+                                                    </div>
+                                                    <!--end::Body-->
+                                                </div>
+                                            </div>
+                                            <!--end::Card-->
+                                        </div>
+                                        <!--end::Wrapper-->
+                                    </div>
+                                    
+                                    
+                                    <!--end::Tap pane-->
+                                </div>
+                                <!--end::Tab Content-->
+                            </div>
+                            <!--end: Card Body-->
+                        </div>
+                        <!--end::Pos food-->
+                    </div>
+                    <!--end::Content-->
+                    
                 </div>
-                <!--end::Card body-->
-                </div>
+                <!--end::Layout-->
                 <!--end::Chart widget 4-->
                 </div>
                 <!--end::Col-->
             </div>
+           <div class="container d-flex justify-content-center"><button class="btn btn-primary">Try on</button></div>
+            
 
 
 

@@ -39,3 +39,6 @@ def upload_image(request):
 
 def list_image(request):
  return render(request, 'list-image.html')
+
+def user_setting(request):
+ return render(request, 'user_setting.html')
