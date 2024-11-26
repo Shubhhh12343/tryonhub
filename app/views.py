@@ -24,12 +24,15 @@ def users(request):
 def history(request):
     return render(request, "history.html")
 
+def history2(request):
+    return render(request, "history2.html")
+
 def graph(request):
     return render(request, "graph.html")
 
 def upload_appreal(request):
     return render(request, "upload_appreal.html")
-
+   
 def emailer(request):
     return render(request, "emailer.html")
 
@@ -42,3 +45,7 @@ def list_image(request):
 
 def user_setting(request):
  return render(request, 'user_setting.html')
+
+def email_template(request):
+ return render(request, 'email-template.html')
+

@@ -20,7 +20,8 @@
                     <!--begin::Page title-->
                     <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
                         <!--begin::Title-->
-                        <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Account Settings</h1>
+                        <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">User Settings
+                        </h1>
                         <!--end::Title-->
                         <!--begin::Breadcrumb-->
                         <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
@@ -35,7 +36,8 @@
                             </li>
                             <!--end::Item-->
                             <!--begin::Item-->
-                            <li class="breadcrumb-item text-muted">Account</li>
+                            <li class="breadcrumb-item text-muted">User Settings
+                            </li>
                             <!--end::Item-->
                         </ul>
                         <!--end::Breadcrumb-->
@@ -58,6 +60,11 @@
                             <div class="card-title m-0">
                                 <h3 class="fw-bold m-0">User Settings</h3>
                             </div>
+                            <!--begin::Card footer-->
+                            <div class="card-footer d-flex justify-content-end py-6 px-2">
+                                <button type="submit" class="btn btn-primary">Save </button>
+                            </div>
+                            <!--end::Card footer-->
                         </div>
                         <!--end::Card header-->
                          <!--begin::Content-->
@@ -69,7 +76,7 @@
                                     <!--begin::Email Address-->
                                     <div class="d-flex flex-wrap align-items-center">
                                         <div id="kt_signin_email">
-                                            <div class="fs-6 fw-bold mb-1">Recieve emails</div>
+                                            <div class="fs-6 fw-bold mb-1">Recieve emails?</div>
                                         </div>
                                         <div id="kt_signin_email_button" class="ms-auto">
                                             <div class="d-flex justify-content-end">
@@ -90,7 +97,7 @@
                                 <div class="d-flex flex-wrap align-items-center">
                                     <!--begin::Label-->
                                     <div id="">
-                                        <div class="fs-6 fw-bold mb-1">Upload image</div>
+                                        <div class="fs-6 fw-bold mb-1">Profile image</div>
                                     </div>
                                     <!--end::Label-->
                                    
@@ -99,7 +106,32 @@
                                         
                                         <!-- Add a space between the input fields -->
                                         <span style="margin: 0 10px;">&nbsp;</span>
-                                        <input type="file" name="workingmin"  class="form-control form-control-solid"  style="width: 220px;">
+                                        <!-- <input type="file" name="workingmin"  class="form-control form-control-solid"  style="width: 220px;"> -->
+                                         <!--begin::Image input-->
+                                         <div class="image-input image-input-outline image-input-placeholder" data-kt-image-input="true">
+                                            <!--begin::Preview existing avatar-->
+                                            <div class="image-input-wrapper w-75px h-75px" style="background-image: url({% static 'assets/media/products/7.png' %});"></div>
+                                            <!--end::Preview existing avatar-->
+                                            <!--begin::Label-->
+                                            <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
+                                                <i class="bi bi-pencil-fill fs-7"></i>
+                                                <!--begin::Inputs-->
+                                                <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+                                                <input type="hidden" name="avatar_remove" />
+                                                <!--end::Inputs-->
+                                            </label>
+                                            <!--end::Label-->
+                                            <!--begin::Cancel-->
+                                            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
+                                                <i class="bi bi-x fs-2"></i>
+                                            </span>
+                                            <!--end::Cancel-->
+                                            <!--begin::Remove-->
+                                            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
+                                                <i class="bi bi-x fs-2"></i>
+                                            </span>
+                                            <!--end::Remove-->
+                                        </div>
                                         
                                         <div id="invalidHoursMessage" style="color: red;"></div>
                                         <div id="invalidminMessage" style="color: red;"></div>
@@ -116,7 +148,7 @@
                                 <div class="d-flex flex-wrap align-items-center">
                                     <!--begin::Label-->
                                     <div id="">
-                                        <div class="fs-6 fw-bold mb-1">Name</div>
+                                        <div class="fs-6 fw-bold mb-1">Username</div>
                                     </div>
                                     <!--end::Label-->
                                    
@@ -147,14 +179,30 @@
                                     <!--end::Action-->
                                 </div>
                                 <!--end::Working hour-->
+                                <!--end::Working hour-->
+                                <div class="separator separator-dashed my-6"></div>
+                                <!--end::Separator-->
+
+                                <!--begin::public holiday -->
+                                <div class="d-flex flex-wrap align-items-center">
+                                    <!--begin::Label-->
+                                    <div id="">
+                                        <div class="fs-6 fw-bold mb-1">Change Password</div>
+                                    </div>
+                                    <!--end::Label-->
+                                   
+                                    <!--begin::Action-->
+                                    <div id="publicHolidayInputContainer" class="ms-auto">
+                                        <input type="text" name="publicHolidayInput" id="publicHolidayInput" class="btn btn-light btn-active-light-primary" value="Shubham@123">
+                                        <div id="invalidPublicHolidayMessage" style="color: red;"></div>
+                                    </div>
+                                    <!--end::Action-->
+                                </div>
+                                <!--end::Working hour-->
 
                                 </div>
                                 <!--end::Card body-->
-                                    <!--begin::Card footer-->
-                                    <div class="card-footer d-flex justify-content-end py-6 px-9">
-                                        <button type="submit" class="btn btn-primary">Save Changes</button>
-                                    </div>
-                                    <!--end::Card footer-->
+                                    
                             </form>
                         </div>
                         <!--end::Content-->
