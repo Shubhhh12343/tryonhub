@@ -48,13 +48,7 @@
                 </div>
             </div>
             <!--end::Sidebar mobile toggle-->
-            <!--begin::Mobile logo-->
-            <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
-                <a href="../../demo1/dist/index.html" class="d-lg-none">
-                    <img alt="Logo" src="{% static 'assets/media/logos/default-small.svg" class="h-30px" />
-                </a>
-            </div>
-            <!--end::Mobile logo-->
+           
             <!--begin::Header wrapper-->
             <div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1" id="kt_app_header_wrapper">
                 <!--begin::Menu wrapper-->
@@ -65,7 +59,7 @@
                         <div  data-kt-menu-placement="bottom-start" class="menu- here show menu-here-bg menu-lg-down-accordion me-0 me-lg-2 mt-7" >
                             <!--begin:Menu link-->
                             <span class="menu-link">
-                                <span class="menu-title"><span class="mx-2" style="color: #00008B;"><b>SWAP VTO</b></span></span>
+                                <span class="menu-title fs-3"><span class="mx-2" style="color: #00008B;"><b>SWAP VTO</b></span></span>
                                 <span class="menu-arrow d-lg-none"></span>
                             </span>
                             <!--end:Menu link-->
@@ -403,8 +397,8 @@
                         <!--begin:Menu item-->
                         <div  data-kt-menu-placement="bottom-start" class="menu-item here show menu-here-bg menu-lg-down-accordion me-0  me-lg-2 " style="margin-left: 200px;">
                             <!--begin:Menu link-->
-                            <span class="menu-link">
-                                <span class="menu-title">Upload Appreal</span>
+                            <span class="">
+                                <a href="{% url 'upload-appreal' %}" class="btn fs-6 btn-outline-primary btn-active-light-primary">Upload Appreal</a>
                                 <span class="menu-arrow d-lg-none"></span>
                             </span>
                             <!--end:Menu link-->
@@ -742,8 +736,8 @@
                         <!--begin:Menu item-->
                         <div  data-kt-menu-placement="bottom-start" class="menu-item here show menu-here-bg menu-lg-down-accordion me-0 me-lg-2">
                             <!--begin:Menu link-->
-                            <span class="menu-link">
-                                <span class="menu-title">History</span>
+                            <span class="">
+                                <a href="{% url 'history' %}" class="btn fs-6 btn-outline-primary btn-active-light-primary">History</a>
                                 <span class="menu-arrow d-lg-none"></span>
                             </span>
                             <!--end:Menu link-->
@@ -1081,8 +1075,8 @@
                         <!--begin:Menu item-->
                         <div  data-kt-menu-placement="bottom-start" class="menu-item here show menu-here-bg menu-lg-down-accordion me-0 me-lg-2">
                             <!--begin:Menu link-->
-                            <span class="menu-link">
-                                <span class="menu-title">Emailer</span>
+                            <span class="">
+                                <a href="{% url 'emailer' %}" class="btn fs-6 btn-outline-primary btn-active-light-primary">Emailer</a>
                                 <span class="menu-arrow d-lg-none"></span>
                             </span>
                             <!--end:Menu link-->

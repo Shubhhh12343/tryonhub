@@ -1,50 +1,58 @@
+
+
 {% load static %}
 
+<style>
+    @font-face {
+        font-family: 'Baloo Bhai';
+        src: url('{% static "fonts/BalooBhai2-Regular.ttf" %}?v=20240228') format('truetype');
+    }
+
+    body {
+        font-family: 'Baloo Bhai', sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+   
+</style>
+
+	
 <div 
-	style="font-family:Arial,Helvetica,sans-serif; line-height: 1.5; font-weight: normal; font-size: 14px; color: #2F3044; min-height: 100%; margin:0; padding:0; width:100%; background-color:#edf2f7; background-image: url('{% static "assets/media/products/15351.png" %}'); ">
-	<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
-		style="border-collapse:collapse;margin:0 auto; padding:0; max-width:600px">
-		<tbody>
-			<tr>
-				<td align="center" valign="center" style="text-align:center;  padding: 20px; ">
-					<a href="#" rel="noopener" target="_blank">
-						<!-- <img alt="" width="" height="40" src="https://promtlogo.s3.ap-south-1.amazonaws.com/ProMT.png" /> -->
-                         <h1>SWAP VTO</h1>
-					</a>
-				</td>
-			</tr>
-			<tr>
-				<td align="left" valign="center">
-					<div style="text-align:left; margin: 0 20px; padding: 40px; background-color:#ffffff; border-radius: 6px">
-						<!--begin:Email content-->
-						<div style="padding-bottom: 30px;">
-							Hey <strong>{{name}},</strong>
-						</div>
-						<div style="padding-bottom: 20px">We received a request to reset the password associated with your ProMT account. To reset your password, please click the button below.</div>
-						<div style="padding-bottom: 20px">
-							<a href="{{url}}"
-								style="background-color:#009EF7; border-radius:6px;display:inline-block; padding:11px 19px; color: #FFFFFF; font-size: 14px; font-weight:500; text-decoration:none;">Reset
-								Password</a>
-						</div>
-						<div style="padding-bottom: 20px">
-							This button will verify your identity and allow you to create a new password.<br> If you did not request a password reset, please disregard this email and contact your system administrator immediately to report suspicious activity.
-						</div>
+    style="
+        height: 500px; 
+        width: 560px; 
+        justify-content: center; 
+        align-items: center;
+        display: flex;
+        padding: 50px;
+        margin: auto; 
+        margin-top: 80px; 
+        background-image: url('{% static "assets/media/products/15351.jpg" %}'); 
+        background-size: cover; 
+        background-position: center;
+        flex-direction: column;"> <!-- Ensures content is stacked vertically -->
 
-						<div style="padding-bottom: 10px">Regards,
-							<br>ProMT
-							<tr>
-                                <td align="center" valign="center" style="font-size: 13px; text-align:center;padding: 20px; color: #6d6e7c;">
-                                    {% comment %} <p> 601, J. K. COMPLEX, OFF LINK ROAD, OPP. YRF STUDIOS, ANDHERI WEST, MUMBAI - 400053</p>
-                                    <p>&copy;
-                                    <a href="https://letsideate.com/" rel="noopener" target="_blank">ProMT</a></p> {% endcomment %}
-                                </td>
-                            </tr>
-							</br>
-						</div>
-					</div>
-				</td>
-			</tr>
-		</tbody>
-	</table>
+    <div class="card" style="width: 300px; margin-bottom: 20px; display: flex; flex-direction: column; align-items: center;">
+        <!-- Image Section -->
+        <div class="card-body" style=" margin-top:30px; height: 200px; width: 200px; background-size: cover; background-image: url('{% static "assets/media/products/7.png" %}');">
+            <!-- Image is displayed here -->
+        </div>
+
+        <!-- Description Section -->
+        <div class="card-text" style="padding: 20px; text-align: center; width: 500px">
+            <p style="font-size: 14px; font-weight: bold; margin-bottom: 10px;">ZARA WOMAN COLLECTION</p>
+            <p style="font-size: 12px; margin-bottom: 10px;">
+                Wool blend coat. High neck with matching scarf. Long sleeves. Front patch pockets. <br> <br>
+                <span style="font-weight: bold">COMPOSITION</span><br>
+                OUTER SHELL: 74% wool, 25% polyamide, 1% other fibres<br>
+                LINING: 100% viscose<br>
+                <span style="margin-bottom: 30px; margin-top: 60px; font-weight: bold;">CARE</span><br>
+                Caring for your clothes is caring for the environment. To keep your jackets and coats clean, you only need to freshen them up and go over them with a cloth or a clothes brush. If you need to dry clean a garment, look for a dry cleaner that uses technologies that are respectful of the environment.
+            
+            </p>
+            <button style="border-radius:5px; background: #1b84ff; color:white; padding: 10px; border:none; cursor: pointer; margin-top: 20px; ">Buy Now</button>
+        </div>
+    </div>
 </div>
-

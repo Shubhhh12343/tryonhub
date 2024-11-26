@@ -37,8 +37,8 @@ def emailer(request):
     return render(request, "emailer.html")
 
 
-def upload_image(request):
-    return render(request, 'upload_stuff.html')
+# def upload_image(request):
+#     return render(request, 'upload_stuff.html')
 
 def list_image(request):
  return render(request, 'list-image.html')
@@ -48,4 +48,7 @@ def user_setting(request):
 
 def email_template(request):
  return render(request, 'email-template.html')
+
+def upload_stuff(request):
+    return render(request, 'upload_stuff.html')
 

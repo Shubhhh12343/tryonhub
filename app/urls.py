@@ -13,8 +13,9 @@ urlpatterns = [
     path("graph/", graph, name="graph"),
     path("upload-appreal/", upload_appreal, name="upload-appreal"),
     path("emailer/", emailer, name="emailer"),
-    path('upload_image',upload_image,name='upload_image'),
+    # path('upload_image',upload_image,name='upload_image'),
     path('list_image', list_image, name='list-image'),
     path("user-setting/", user_setting, name="user-setting"),
     path("email-template/", email_template, name="email-template"),
+    path("upload-stuff/", upload_stuff, name="upload-stuff"),
 ]
