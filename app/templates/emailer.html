@@ -392,7 +392,33 @@
                                     <div class="col-lg-8">
                                         <!--begin::Row-->
                                             <!--begin::Col-->
-                                                <input type="url" name="date" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0 " placeholder="Enter url"  />
+                                                <input type="url" name="url" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0 " placeholder="Enter url"  />
+                                            <!--end::Col-->
+                                            
+                                        <!--end::Row-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row mb-6">
+                                    <!--begin::Label-->
+                                    <label class="col-lg-4 col-form-label required fw-semibold fs-6">Background color</label>
+                                    <!--end::Label-->
+                                    <!--begin::Col-->
+                                    <div class="col-lg-8">
+                                        <!--begin::Row-->
+                                            <!--begin::Col-->
+                                                    <!--begin::Select2-->
+                                                    <select class="form-select form-select-solid" name="layout" data-control="select2" data-hide-search="true" data-placeholder="Select">
+                                                        <option></option>
+                                                        <option value="#f5f8fa">Gray</option>
+                                                        <option value="#ffffff">White</option>
+                                                        <option value="#009ef7">Blue</option>
+                                                        <option value="#f1416c">Red</option>
+                                                        <option value="#50cd89">Green</option>
+                                                    </select>
+                                                    <!--end::Select2-->
                                             <!--end::Col-->
                                             
                                         <!--end::Row-->
@@ -409,7 +435,43 @@
                                     <div class="col-lg-8">
                                         <!--begin::Row-->
                                             <!--begin::Col-->
-                                                <textarea rows="2" name="date" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0 " placeholder="Enter description"  ></textarea>
+                                            <form method="POST" >
+                                                {% csrf_token %}
+                                                <input type="hidden" name="content">
+                                                
+                                                <div id="kt_docs_quill_basic" name="kt_docs_quill_basic" style="min-height: 200px;" class="card-scroll h-300px">
+                                                    {{notes.0.message|safe}}
+                                                </div>
+                                            
+                                                
+                                            </form>
+                                            <!--end::Col-->
+                                            
+                                        <!--end::Row-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row mb-6">
+                                    <!--begin::Label-->
+                                    <label class="col-lg-4 col-form-label required fw-semibold fs-6">Filter</label>
+                                    <!--end::Label-->
+                                    <!--begin::Col-->
+                                    <div class="col-lg-8">
+                                        <!--begin::Row-->
+                                            <!--begin::Col-->
+                                                    <!--begin::Select2-->
+                                                    <select class="form-select form-select-solid" name="layout" data-control="select2" data-hide-search="true" data-placeholder="Select ">
+                                                        <option></option>
+                                                        <!-- <option value="Default" selected="selected">Default</option> -->
+                                                        <option value="< 30 days users">< 30 days users</option>
+                                                        <option value="< 60 days users"> < 60 days users</option>
+                                                        <option value="< 90 days users">< 90 days users</option>
+                                                        <option value="< 180 days users">< 180 days users</option>
+                                                        <option value="< 360 days users"> < 360 days users</option>
+                                                    </select>
+                                                    <!--end::Select2-->
                                             <!--end::Col-->
                                             
                                         <!--end::Row-->
@@ -427,6 +489,46 @@
                     </div>
                     <!--end::Content-->
                 </div>
+
+                <button type="button" id="previewButton" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#emailPreviewModal">
+                    Preview Email
+                </button>
+                
+
+                            <!-- Modal -->
+                           <!-- Modal -->
+<div class="modal fade" id="emailPreviewModal"  tabindex="-1" aria-labelledby="emailPreviewLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="emailPreviewLabel">Email Preview</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex justify-content-center">
+                <div 
+                    id="modalContent"
+                    style="
+                        height: 600px; 
+                        width: 560px; 
+                        justify-content: center; 
+                        align-items: center;
+                        display: flex;
+                        padding: 50px;
+                        margin: auto; 
+                     
+                        background-size: cover; 
+                        background-position: center;
+                        flex-direction: column;">
+                    
+                    <!-- Dynamic Content will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                            
+
                 <!--end::Basic info-->
                 <!--begin::Sign-in Method-->
               
@@ -451,4 +553,80 @@
 
 
 </script>
+
+<script>
+    var form = document.querySelector('form');
+    var quill = new Quill('#kt_docs_quill_basic', {
+        modules: {
+            toolbar: [
+                [{
+                    header: [1, 2, false]
+                }],
+                ['bold', 'italic', 'underline'],
+                ['font', 'list']
+            ]
+        },
+        placeholder: 'Type your note here...',
+        theme: 'snow' // or 'bubble'
+    });
+    form.addEventListener('submit', function() {
+        var content = quill.root.innerHTML;
+        document.querySelector('input[name=content]').value = content;
+    });
+</script>
+<script>
+    document.getElementById('previewButton').addEventListener('click', function () {
+    // Get the uploaded image file
+    const avatarInput = document.querySelector('input[name="avatar"]').files[0];
+    let avatarUrl = '';
+    if (avatarInput) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            avatarUrl = e.target.result;
+            updateModalContent(avatarUrl); // Call updateModalContent with the image URL
+        };
+        reader.readAsDataURL(avatarInput);
+    } else {
+        avatarUrl = '{% static "assets/media/products/7.png" %}'; // Fallback image
+        updateModalContent(avatarUrl); // Call updateModalContent with the fallback image
+    }
+
+    // Function to update modal content
+    function updateModalContent(avatarUrl) {
+        let embedUrl = document.querySelector('input[name="url"]').value.trim();
+
+        // Ensure the URL starts with http:// or https://
+        if (!/^https?:\/\//i.test(embedUrl)) {
+            embedUrl = 'http://' + embedUrl; // Prepend http:// if not present
+        }
+
+        // Get background color and description
+        const bgColor = document.querySelector('select[name="layout"]').value || '#ffffff';
+        const description = document.querySelector('#kt_docs_quill_basic').textContent.trim() || 'No description provided';
+
+        // Populate modal content
+        const modalContent = document.getElementById('modalContent');
+        modalContent.innerHTML = `
+          <div class="card" 
+            style="width: 700px; min-height: 550px; margin-bottom: 20px; display: flex; flex-direction: column; align-items: center; background-color: ${bgColor};">
+            <!-- Image Section -->
+            <div class="card-body" style="position:relative; right:55px;  margin-top:30px; height: 200px; width: 300px; background-size: cover; background-image: url('${avatarUrl}');"></div>
+            
+            <!-- Description Section -->
+            <div class="card-text" style="padding: 20px; text-align: center; width: 500px">
+                <p style="font-size: 12px; margin-bottom: 10px;">
+                    ${description}<br><br>
+                </p>
+                <a id="previewBuyNow" target="_blank" href="${embedUrl}" 
+                   style="border-radius:5px; background: #1b84ff; color:white; padding: 10px; border:none; cursor: pointer; margin-top: 20px;">
+                   Buy Now
+                </a>
+            </div>
+          </div>
+        `;
+    }
+});
+
+</script>
+
 {% endblock js %}
