@@ -17,4 +17,5 @@ urlpatterns = [
     path("user-setting/", user_setting, name="user-setting"),
     path("email-template/", email_template, name="email-template"),
     path("view-appreal/", upload_stuff, name="view-appreal"),
+    path("forgot-password", forgot_password, name="forgot-password")
 ]

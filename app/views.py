@@ -52,3 +52,5 @@ def email_template(request):
 def upload_stuff(request):
     return render(request, 'upload_stuff.html')
 
+def forgot_password(request):
+   return render(request, 'forgot-password.html')
