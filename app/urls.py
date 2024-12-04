@@ -10,12 +10,12 @@ urlpatterns = [
     path("history/", history, name="history"),
     path("history2/", history2, name="history2"),
     path("graph/", graph, name="graph"),
-    path("upload-appreal/", upload_appreal, name="upload-appreal"),
+    path("upload-apparel/", upload_apparel, name="upload-apparel"),    
     path("emailer/", emailer, name="emailer"),
     # path('upload_image',upload_image,name='upload_image'),
     path('list_image/', list_image, name='list-image'),
     path("user-setting/", user_setting, name="user-setting"),
     path("email-template/", email_template, name="email-template"),
-    path("view-appreal/", upload_stuff, name="view-appreal"),
+    path("view-apparel/", upload_stuff, name="view-apparel"),
     path("forgot-password", forgot_password, name="forgot-password")
 ]

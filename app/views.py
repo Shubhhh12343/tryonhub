@@ -30,8 +30,8 @@ def history2(request):
 def graph(request):
     return render(request, "graph.html")
 
-def upload_appreal(request):
-    return render(request, "upload_appreal.html")
+def upload_apparel(request):
+    return render(request, "upload_apparel.html")
    
 def emailer(request):
     return render(request, "emailer.html")
