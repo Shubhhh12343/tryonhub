@@ -141,7 +141,7 @@
 						<div class="w-lg-400px w-275px py-md-0 py-20">
 
 							<!--begin::Form-->
-							<form class="form w-100" id="kt_sign_in_form"  method="POST">
+							<form class="form w-100" id="kt_sign_up_form"  method="POST" autocomplete="off" action="{% url 'register' %}">
                                 {% csrf_token %}
 								<!--begin::Heading-->
 								<div class="text-center mb-6">
@@ -177,32 +177,47 @@
 								</div>
 								<!--end::Input group=-->
 								<!--begin::Input group=-->
-								<!-- <div class="fv-row mb-8">
-									<div class="input-container col-12">
-										<input type="text" placeholder="Enter OTP" name="otp" autocomplete="off" class="form-control"  />
-										<label for="otp" class="floating-label px-2 text-primary">Enter OTP</label>
+								<!--begin::Input group-->
+								<div class="fv-row mb-8" data-kt-password-meter="true">
+									<!--begin::Wrapper-->
+									<div class="mb-1">
+										<!--begin::Input wrapper-->
+										<div class="position-relative mb-3">
+											<input class="form-control bg-transparent" type="password" placeholder="Password" name="password" autocomplete="off" />
+											<span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2" data-kt-password-meter-control="visibility">
+												<i class="bi bi-eye-slash fs-2"></i>
+												<i class="bi bi-eye fs-2 d-none"></i>
+											</span>
+										</div>
+										<!--end::Input wrapper-->
+										<!--begin::Meter-->
+										<div class="d-flex align-items-center mb-3" data-kt-password-meter-control="highlight">
+											<div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+											<div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+											<div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+											<div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px"></div>
+										</div>
+										<!--end::Meter-->
 									</div>
-								</div> -->
+									<!--end::Wrapper-->
+									<!--begin::Hint-->
+									<div class="text-muted">Use 8 or more characters with a mix of letters, numbers & symbols.</div>
+									<!--end::Hint-->
+								</div>
 								<!--end::Input group=-->
-								<div class="fv-row mb-3">
-									<!--begin::Password-->
-									<div class="input-container position-relative mb-3 col-12" data-kt-password-meter="true">
-										<input class="form-control" type="password" placeholder="Enter password" name="password" autocomplete="off" />
-										<label for="password" class="floating-label px-2 text-primary">Enter password</label>
-										<span class="btn btn-sm btn-icon position-absolute translate-middle  end-0 me-n2" data-kt-password-meter-control="visibility" style="position: absolute; top: 25px;">
-											<i class="bi bi-eye-slash fs-2"></i>
-											<i class="bi bi-eye fs-2 d-none"></i>
-										</span>
-									</div>
-									<!--end::Password-->
+								<!--end::Input group=-->
+								<div class="fv-row mb-8">
+									<!--begin::Repeat Password-->
+									<input placeholder="Repeat Password" name="confirm-password" type="password" autocomplete="off" class="form-control bg-transparent" />
+									<!--end::Repeat Password-->
 								</div>
 								<!--end::Input group=-->
 							
 								<!--begin::Submit button-->
 								<div class="d-grid mb-10">
-									<button type="submit" id="kt_sign_in_submit" class="btn btn-primary">
+									<button type="submit" id="kt_sign_up_submit" class="btn btn-primary">
 										<!--begin::Indicator label-->
-										<span class="indicator-label">Log In</span>
+										<span class="indicator-label">Sign Up</span>
 										<!--end::Indicator label-->
 										<!--begin::Indicator progress-->
 										<span class="indicator-progress">Please wait...
@@ -251,220 +266,8 @@
 		<script src="{% static 'assets/js/scripts.bundle.js' %}"></script>
 		<!--end::Global Javascript Bundle-->
 		<!--begin::Custom Javascript(used for this page only)-->
-<script>
-"use strict";
+		<script src="{% static 'assets/js/custom/authentication/sign-up/general.js' %}"></script>
 
-// Class definition
-var KTSigninGeneral = function() {
-    // Elements
-    var form;
-    var submitButton;
-    var validator;
-
-    // Handle form
-    var handleValidation = function(e) {
-        // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
-        validator = FormValidation.formValidation(
-			form,
-			{
-				fields: {					
-					'email': {
-                        validators: {
-                            regexp: {
-                                regexp: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                                message: 'Enter a valid email address',
-                            },
-							notEmpty: {
-								message: 'Email address is required'
-							}
-						}
-					},
-                    'password': {
-                        validators: {
-                            notEmpty: {
-                                message: 'Password is required'
-                            },
-                        }
-                    } 
-				},
-				plugins: {
-					trigger: new FormValidation.plugins.Trigger(),
-					bootstrap: new FormValidation.plugins.Bootstrap5({
-                        rowSelector: '.fv-row',
-                        eleInvalidClass: '',  // comment to enable invalid state icons
-                        eleValidClass: '' // comment to enable valid state icons
-                    })
-				}
-			}
-		);	
-    }
-
-    var handleSubmitDemo = function(e) {
-        // Handle form submit
-        submitButton.addEventListener('click', function (e) {
-            // Prevent button default action
-            e.preventDefault();
-
-            // Validate form
-            validator.validate().then(function (status) {
-                if (status == 'Valid') {
-					var email = form.querySelector('[name="email"]').value
-					var password = form.querySelector('[name="password"]').value
-					console.log(email,"email")
-					$.ajax({
-						method:"POST",
-						url:"/check-credential/",
-						data:{
-							csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
-							user_email:email,
-							user_password:password,
-						},
-						success: function(response){
-							console.log(response)
-							if (response.status == 200){
-								submitButton.setAttribute('data-kt-indicator', 'on');
-
-								// Disable button to avoid multiple click 
-								submitButton.disabled = true;
-								
-
-								// Simulate ajax request
-								setTimeout(function() {
-									// Hide loading indication
-									submitButton.removeAttribute('data-kt-indicator');
-
-									// Enable button
-									submitButton.disabled = false;
-
-									// Show message popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
-									
-								form.submit()
-								}, 2000);
-							}
-							else if(response.status === 400){
-								const passwordError = document.getElementById("password-error");
-								toastr.options = {
-									"closeButton": false,
-									"debug": false,
-									"newestOnTop": false,
-									"progressBar": false,
-									"positionClass": "toastr-top-right",
-									"preventDuplicates": false,
-									"onclick": null,
-									"showDuration": "300",
-									"hideDuration": "1000",
-									"timeOut": "5000",
-									"extendedTimeOut": "1000",
-									"showEasing": "swing",
-									"hideEasing": "linear",
-									"showMethod": "fadeIn",
-									"hideMethod": "fadeOut"
-								  };
-								  
-								  toastr.error("Incorrect Email or Password");;
-								setTimeout(() => {
-									passwordError.innerHTML = "";
-								}, 5000);
-							}
-						}
-					});
-                    // Show loading indication
-                       						
-                } else {
-                    // Show error popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
-                }
-            });
-		});
-    }
-
-    var handleSubmitAjax = function(e) {
-        // Handle form submit
-        submitButton.addEventListener('click', function (e) {
-            // Prevent button default action
-            e.preventDefault();
-
-            // Validate form
-            validator.validate().then(function (status) {
-                if (status == 'Valid') {
-                    // Hide loading indication
-                    submitButton.removeAttribute('data-kt-indicator');
-
-                    // Enable button
-                    submitButton.disabled = false;
-                                        
-                    // Check axios library docs: https://axios-http.com/docs/intro 
-                    axios.post('/your/ajax/login/url', {
-                        email: form.querySelector('[name="email"]').value, 
-                        password: form.querySelector('[name="password"]').value 
-                    }).then(function (response) {
-                        if (response) {
-                            form.querySelector('[name="email"]').value= "";
-                            form.querySelector('[name="password"]').value= "";  
-
-                            const redirectUrl = form.getAttribute('data-kt-redirect-url');
-                            
-                            if (redirectUrl) {
-                                location.href = redirectUrl;
-                            }
-                        } else {
-                            // Show error popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
-                            Swal.fire({
-                                text: "Sorry, the email or password is incorrect, please try again.",
-                                icon: "error",
-                                buttonsStyling: false,
-                                confirmButtonText: "OK",
-                                customClass: {
-                                    confirmButton: "btn btn-primary"
-                                }
-                            });
-                        }
-                    }).catch(function (error) {
-                        Swal.fire({
-                            text: "Sorry, looks like there are some errors detected, please try again.",
-                            icon: "error",
-                            buttonsStyling: false,
-                            confirmButtonText: "OK",
-                            customClass: {
-                                confirmButton: "btn btn-primary"
-                            }
-                        });
-                    });
-                } else {
-                    // Show error popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
-                    Swal.fire({
-                        text: "Sorry, looks like there are some errors detected, please try again.",
-                        icon: "error",
-                        buttonsStyling: false,
-                        confirmButtonText: "OK",
-                        customClass: {
-                            confirmButton: "btn btn-primary"
-                        }
-                    });
-                }
-            });
-		});
-    }
-
-    // Public functions
-    return {
-        // Initialization
-        init: function() {
-            form = document.querySelector('#kt_sign_in_form');
-            submitButton = document.querySelector('#kt_sign_in_submit');
-            
-            handleValidation();
-            handleSubmitDemo(); // used for demo purposes only, if you use the below ajax version you can uncomment this one
-            //handleSubmitAjax(); // use for ajax submit
-        }
-    };
-}();
-
-// On document ready
-KTUtil.onDOMContentLoaded(function() {
-    KTSigninGeneral.init();
-});
-
-</script>
 <script>
 	  var alertBoxes = document.querySelectorAll('.alert');
   alertBoxes.forEach(function(alertBox) {

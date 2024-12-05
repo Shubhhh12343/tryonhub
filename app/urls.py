@@ -4,6 +4,10 @@ from app.views import *
 urlpatterns = [
     path("", sign_in, name="sign_in"),
     path("register/", register, name="register"),
+    path("check-credential/",check_credential,name="check_credential"),
+    path("check-email/",check_mail,name="check-mail"),
+    path('log_out/', log_out, name='log_out'),
+    path('otp/', otp_page, name='otp'),
     path("customer-registration/", company_registration, name="customer-registration"),
     path("products/", list_view, name="products"),
     path("users/", users, name="users"),
@@ -17,5 +21,6 @@ urlpatterns = [
     path("user-setting/", user_setting, name="user-setting"),
     path("email-template/", email_template, name="email-template"),
     path("view-apparel/", upload_stuff, name="view-apparel"),
-    path("forgot-password", forgot_password, name="forgot-password")
+    path("forgot-password", forgot_password, name="forgot-password"),
+    path('emailotp', emailotp, name="emailotp" )
 ]

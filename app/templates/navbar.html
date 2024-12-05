@@ -17,7 +17,6 @@
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 999; /* Ensure it's above other elements */
 }
 
 .app-container {
@@ -247,7 +246,7 @@
                             <!--end::Menu item-->
                             <!--begin::Menu item-->
                             <div class="menu-item px-5">
-                                <a href="../../demo1/dist/authentication/layouts/corporate/sign-in.html" class="menu-link px-5">Sign Out</a>
+                                <a href="{% url 'log_out' %}" class="menu-link px-5">Sign Out</a>
                             </div>
                             <!--end::Menu item-->
                         </div>

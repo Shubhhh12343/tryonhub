@@ -141,7 +141,7 @@
 						<div class="w-lg-400px w-275px py-md-0 py-20">
 
 							<!--begin::Form-->
-							<form class="form w-100" id="kt_sign_in_form" method="POST">
+							<form class="form w-100" id="kt_sign_in_form" method="POST" action="{% url 'sign_in' %}">
 								{% csrf_token %}
 								<!--begin::Heading-->
 								<div class="text-center mb-6">

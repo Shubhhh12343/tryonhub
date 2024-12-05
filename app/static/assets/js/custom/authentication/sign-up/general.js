@@ -15,20 +15,13 @@ var KTSignupGeneral = function() {
 			form,
 			{
 				fields: {
-					'first-name': {
+					'name': {
 						validators: {
 							notEmpty: {
-								message: 'First Name is required'
+								message: 'Name is required'
 							}
 						}
                     },
-                    'last-name': {
-						validators: {
-							notEmpty: {
-								message: 'Last Name is required'
-							}
-						}
-					},
 					'email': {
                         validators: {
                             regexp: {
@@ -68,13 +61,7 @@ var KTSignupGeneral = function() {
                             }
                         }
                     },
-                    'toc': {
-                        validators: {
-                            notEmpty: {
-                                message: 'You must accept the terms and conditions'
-                            }
-                        }
-                    }
+                    
 				},
 				plugins: {
 					trigger: new FormValidation.plugins.Trigger({
@@ -114,39 +101,31 @@ var KTSignupGeneral = function() {
                         submitButton.disabled = false;
 
                         // Show message popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
-                        Swal.fire({
-                            text: "You have successfully reset your password!",
-                            icon: "success",
-                            buttonsStyling: false,
-                            confirmButtonText: "OK",
-                            customClass: {
-                                confirmButton: "btn btn-primary"
-                            }
-                        }).then(function (result) {
-                            if (result.isConfirmed) { 
-                                form.reset();  // reset form                    
+                        // Swal.fire({
+                        //     text: "You have successfully reset your password!",
+                        //     icon: "success",
+                        //     buttonsStyling: false,
+                        //     confirmButtonText: "OK",
+                        //     customClass: {
+                        //         confirmButton: "btn btn-primary"
+                        //     }
+                        // }).then(function (result) {
+                        //     if (result.isConfirmed) { 
+                                // form.reset();  // reset form                    
                                 passwordMeter.reset();  // reset password meter
                                 //form.submit();
 
-                                //form.submit(); // submit form
+                                form.submit(); // submit form
                                 var redirectUrl = form.getAttribute('data-kt-redirect-url');
                                 if (redirectUrl) {
                                     location.href = redirectUrl;
                                 }
-                            }
-                        });
+                        //     }
+                        // });
                     }, 1500);   						
                 } else {
                     // Show error popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
-                    Swal.fire({
-                        text: "Sorry, looks like there are some errors detected, please try again.",
-                        icon: "error",
-                        buttonsStyling: false,
-                        confirmButtonText: "OK",
-                        customClass: {
-                            confirmButton: "btn btn-primary"
-                        }
-                    });
+                    
                 }
 		    });
         });
