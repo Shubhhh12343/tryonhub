@@ -99,8 +99,8 @@ var KTSigninTwoSteps = function() {
     return {
         // Initialization
         init: function() {
-            form = document.querySelector('#kt_sing_in_two_steps_form');
-            submitButton = document.querySelector('#kt_sing_in_two_steps_submit');
+            form = document.querySelector('#kt_sing_in_two_steps_otp_form');
+            submitButton = document.querySelector('#kt_sing_in_two_steps_otp_submit');
 
             handleForm();
             handleType();

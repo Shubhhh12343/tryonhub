@@ -161,6 +161,7 @@
 									<!--begin::Name-->
 									<div class="input-container col-12">
 										<input type="text" placeholder="Enter name" name="name" autocomplete="off" class="form-control"  />
+										
 										<label for="name" class="floating-label px-2 text-primary">Enter name</label>
 									</div>
 									<!--end::Name-->
@@ -170,12 +171,14 @@
 								<div class="fv-row mb-8">
 									<!--begin::Email-->
 									<div class="input-container col-12">
-										<input type="text" placeholder="Enter email" name="email" autocomplete="off" class="form-control"  />
+										<input type="text" placeholder="Enter email" name="email" autocomplete="off" class="form-control" id="email-field" />
+
 										<label for="email" class="floating-label px-2 text-primary">Enter email</label>
 									</div>
 									<!--end::Email-->
 								</div>
 								<!--end::Input group=-->
+								
 								<!--begin::Input group=-->
 								<!--begin::Input group-->
 								<div class="fv-row mb-8" data-kt-password-meter="true">
@@ -217,7 +220,7 @@
 								<div class="d-grid mb-10">
 									<button type="submit" id="kt_sign_up_submit" class="btn btn-primary">
 										<!--begin::Indicator label-->
-										<span class="indicator-label">Sign Up</span>
+										<span class="indicator-label">Send OTP</span>
 										<!--end::Indicator label-->
 										<!--begin::Indicator progress-->
 										<span class="indicator-progress">Please wait...
@@ -277,6 +280,44 @@
     }, 3000);
   });
 </script>
+
+<script>
+    document.getElementById('send-otp').addEventListener('click', function () {
+        const emailField = document.getElementById('email-field');
+        const email = emailField.value.trim();
+
+        // Basic validation for empty email
+        if (!email) {
+            alert('Please enter an email address.');
+            return;
+        }
+
+        // Check if the email format is valid using regex
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        if (!emailPattern.test(email)) {
+            alert('Please enter a valid email address.');
+            return;
+        }
+
+        // Send OTP request to the server
+        fetch(`/register/?send_otp=1&email=${encodeURIComponent(email)}`, { method: 'GET' })
+    .then(response => response.json())  // Expecting JSON response
+    .then(data => {
+        if (data.success) {
+            alert('OTP sent to your email.');
+        } else {
+            alert(data.message || 'Error sending OTP. Please try again.');
+        }
+    })
+    .catch(err => {
+        console.error('Error during OTP request:', err);
+        alert('Error sending OTP. Please try again.');
+    });
+
+    });
+</script>
+
+
 		<!--end::Custom Javascript-->
 		{% if messages %}
 {% for message in messages %}

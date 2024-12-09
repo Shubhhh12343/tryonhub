@@ -8,6 +8,7 @@ from django.core.mail import EmailMessage
 from django.utils.safestring import mark_safe
 from django.template.loader import render_to_string  # For rendering email templates
 import random  # For generating random OTPs
+from app.utils import *
 
 
 # Create your views here.
@@ -36,32 +37,79 @@ def sign_in(request):
     return render(request, "login.html")
 
 
+
 def register(request):
-    if request.method == "POST":
-       print(f"{request.POST=}")
-       name = request.POST.get('name')
-       email = request.POST.get('email')
-       password = request.POST.get('password')
-       confirm_password = request.POST.get('confirm-password')
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        confirm_password = request.POST.get('confirm-password')
 
-       if password != confirm_password:
-          messages.error(request, 'Passwords do not match')
-          return redirect('register')
+        # Password match validation
+        if password != confirm_password:
+            messages.error(request, "Passwords do not match.")
+            return redirect('register')
 
-       if User.objects.filter(email=email).exists():
-          messages.error(request, 'Email already in use')
-          return redirect('register')
-       
-       user = User.objects.create(
-          name = name,
-          email = email,
-          password = make_password(password)
-       )
-       user.save()
-       messages.success(request, "Account created successfully! Please log in.")
-       return redirect('sign_in')
+        # Email uniqueness validation
+        if User.objects.filter(email=email).exists():
+            messages.error(request, "Email is already in use.")
+            return redirect('register')
 
-    return render(request, "register.html")
+        # Create the user (without OTP verification at this stage)
+        user = User.objects.create(
+            name=name,
+            email=email,
+            password=make_password(password)
+        )
+        user.save()
+
+        # Send OTP to email
+        otp = send_otp(email)
+
+        # Save OTP to the database for future verification
+        OTP.objects.create(user_email=email, otp=otp)
+
+        # Store email in session and redirect to OTP verification
+        request.session['email'] = email
+        return redirect('verify-otp')
+
+    return render(request, 'register.html')
+
+
+def verify_otp(request):
+    email = request.session.get('email')  # Get email from session
+
+    if email:
+        # Call the utility function to mask the email
+        masked_email = hiddden_email(email)
+    else:
+        masked_email = None  # Fallback if email is not in session
+
+    if request.method == 'POST':
+        otp_input = ''.join([request.POST.get(f'code_{i}') for i in range(1, 7)])
+
+        try:
+            otp_entry = OTP.objects.get(user_email=email, otp=otp_input)
+            if otp_entry.is_valid():
+                # OTP is valid, activate user
+                user = User.objects.get(email=email)
+                user.is_active = True  # Activate the user
+                user.save()
+
+                # Optionally, delete OTP after successful verification
+                otp_entry.delete()
+
+                messages.success(request, "OTP verified successfully! Please login.")
+                return redirect('sign_in')
+            else:
+                messages.error(request, "OTP is expired. Please request a new one.")
+        except OTP.DoesNotExist:
+            messages.error(request, "Invalid OTP. Please try again.")
+        
+    return render(request, 'verify_otp.html', {'masked_email': masked_email})  # Pass the masked email to the template
+
+
+
 
 def check_credential(request):
     try:
@@ -105,7 +153,41 @@ def log_out(request):
    return redirect('sign_in')
 
 def otp_page(request):
+    # Retrieve email from session or redirect if not present
+    email = request.session.get('email')
+    if not email:
+        messages.error(request, "Session expired. Please try again.")
+        return redirect('forgot-password')
+
+    print(f"Session Email Before POST: {email}")
+
+    if request.method == "POST":
+        otp_code = ''.join([request.POST.get(f'code_{i}', '').strip() for i in range(1, 7)])
+        print(f"User Entered OTP: {otp_code}")
+
+        try:
+            # Fetch OTP for the provided email
+            otp_entry = OTP.objects.get(user_email=email, otp=otp_code)
+            print(f"OTP Entry Found: {otp_entry}")
+
+            if otp_entry.is_valid():
+                otp_entry.delete()
+                messages.success(request, "OTP verified successfully!")
+                return redirect('set-password')
+            else:
+                otp_entry.delete()
+                messages.error(request, "OTP has expired. Please request a new one.")
+                return redirect('forgot-password')
+
+        except OTP.DoesNotExist:
+            print(f"No matching OTP entry for Email: {email} and OTP: {otp_code}")
+            messages.error(request, "Invalid OTP. Please try again.")
+            return redirect('otp')
+
     return render(request, 'OTP.html')
+
+
+
 
 def company_registration(request):
     return render(request, "company-registration.html")
@@ -136,9 +218,6 @@ def upload_apparel(request):
 def emailer(request):
     return render(request, "emailer.html")
 
-
-# def upload_image(request):
-#     return render(request, 'upload_stuff.html')
 
 def list_image(request):
  return render(request, 'list-image.html')
@@ -177,7 +256,9 @@ def forgot_password(request):
         otp = random.randint(100000, 999999)
 
         # Save OTP in database
-        OTP.objects.create(user=user, otp=otp)
+        OTP.objects.create(user_email=user.email, otp=otp)
+        request.session['email'] = email
+
 
         # Prepare email content using email-otp-page.html
         email_subject = "Your OTP for Password Reset"
@@ -199,3 +280,44 @@ def forgot_password(request):
 
 def emailotp(request):
     return render (request, 'email-otp-page.html')
+
+from django.contrib.auth.hashers import make_password
+
+def set_password(request):
+    # Retrieve email from session
+    email = request.session.get('email')
+    if not email:
+        messages.error(request, "Session expired. Please try again.")
+        return redirect('forgot-password')
+
+    if request.method == 'POST':
+        password = request.POST.get('password')
+        confirm_password = request.POST.get('confirm-password')
+
+        # Check if both passwords match
+        if password != confirm_password:
+            messages.error(request, "Passwords do not match.")
+            return redirect('set-password')
+
+        # Validate password strength (optional)
+        if len(password) < 8:
+            messages.error(request, "Password must be at least 8 characters long.")
+            return redirect('set-password')
+
+        # Update user's password
+        try:
+            user = User.objects.get(email=email)
+            user.password = make_password(password)
+            user.save()
+
+            # Clear email from session after successful password reset
+            del request.session['email']
+
+            messages.success(request, "Password reset successful! Please log in.")
+            return redirect('sign_in')
+
+        except User.DoesNotExist:
+            messages.error(request, "User does not exist. Please try again.")
+            return redirect('forgot-password')
+
+    return render(request, 'set-password.html')

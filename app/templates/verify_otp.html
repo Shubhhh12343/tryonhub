@@ -39,7 +39,7 @@
 						<!--begin::Wrapper-->
 						<div class="w-lg-500px p-10">
 							<!--begin::Form-->
-							<form class="form w-100 mb-13" novalidate="novalidate" method="POST" id="kt_sing_in_two_steps_otp_form" action="{% url 'otp' %}">
+							<form class="form w-100 mb-13" novalidate="novalidate" method="POST" id="kt_sing_in_two_steps_form" action="{% url 'verify-otp' %}">
 								{% csrf_token  %}
 								<!--begin::Icon-->
 								<div class="text-center mb-10">
@@ -55,7 +55,7 @@
 									<div class="text-muted fw-semibold fs-5 mb-5">Enter the verification code we sent to</div>
 									<!--end::Sub-title-->
 									<!--begin::Mobile no-->
-									<div class="fw-bold text-dark fs-3">******7859</div>
+									<div class="fw-bold text-dark fs-3">{{ masked_email }}</div>
 									<!--end::Mobile no-->
 								</div>
 								<!--end::Heading-->
@@ -78,7 +78,7 @@
 								<!--end::Section-->
 								<!--begin::Submit-->
 								<div class="d-flex flex-center">
-									<button type="button" id="kt_sing_in_two_steps_otp_submit" class="btn btn-lg btn-primary fw-bold">
+									<button type="button" id="kt_sing_in_two_steps_submit" class="btn btn-lg btn-primary fw-bold">
 										<span class="indicator-label">Submit</span>
 										<span class="indicator-progress">Please wait...
 										<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
@@ -129,52 +129,43 @@
 		<script src="{% static 'assets/js/scripts.bundle.js' %}"></script>
 		<!--end::Global Javascript Bundle-->
 		<!--begin::Custom Javascript(used for this page only)-->
-		<script src="{% static 'assets/js/custom/authentication/sign-in/otp.js' %}"></script>
+		<script src="{% static 'assets/js/custom/authentication/sign-in/two-steps.js' %}"></script>
 		<!--end::Custom Javascript-->
-		<script>
-			var alertBoxes = document.querySelectorAll('.alert');
-		alertBoxes.forEach(function(alertBox) {
-		  // Set a timeout to remove the alert box after 3 seconds
-		  setTimeout(function() {
-			alertBox.remove();
-		  }, 3000);
-		});
-	  </script>
-	  {% if messages %}
-		{% for message in messages %}
-			{% if message.tags == "success" %}
-			<script  type=text/javascript>
-				var msg = "{{message}}";
-				toastr.options = {
-				"closeButton": false,
-				"debug": false,
-				"newestOnTop": false,
-				"progressBar": false,
-				"positionClass": "toastr-top-right",
-				"preventDuplicates": false,
-				"onclick": null,
-				"showDuration": "300",
-				"hideDuration": "1000",
-				"timeOut": "5000",
-				"extendedTimeOut": "1000",
-				"showEasing": "swing",
-				"hideEasing": "linear",
-				"showMethod": "fadeIn",
-				"hideMethod": "fadeOut"
-				};
-				$(document).ready(function () {
-					toastr.success(msg);
-				})
-			</script>
-			{% else %}
-			<script  type=text/javascript>
-				var msg = "{{message}}";
-				toastr.error(msg);
-			</script>
-			{% endif %}
-		{% endfor %}
-	  {% endif %}
 		<!--end::Javascript-->
+		{% if messages %}
+			{% for message in messages %}
+				{% if message.tags == "success" %}
+				<script  type=text/javascript>
+					var msg = "{{message}}";
+					toastr.options = {
+					"closeButton": false,
+					"debug": false,
+					"newestOnTop": false,
+					"progressBar": false,
+					"positionClass": "toastr-top-right",
+					"preventDuplicates": false,
+					"onclick": null,
+					"showDuration": "300",
+					"hideDuration": "1000",
+					"timeOut": "5000",
+					"extendedTimeOut": "1000",
+					"showEasing": "swing",
+					"hideEasing": "linear",
+					"showMethod": "fadeIn",
+					"hideMethod": "fadeOut"
+					};
+					$(document).ready(function () {
+						toastr.success(msg);
+					})
+				</script>
+				{% else %}
+				<script  type=text/javascript>
+					var msg = "{{message}}";
+					toastr.error(msg);
+				</script>
+				{% endif %}
+			{% endfor %}
+		{% endif %}
 	</body>
 	<!--end::Body-->
 </html>

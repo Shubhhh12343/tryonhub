@@ -14,6 +14,7 @@ var KTSigninTwoSteps = function() {
 
             var validated = true;
 
+            // Check if all inputs are filled
             var inputs = [].slice.call(form.querySelectorAll('input[maxlength="1"]'));
             inputs.map(function (input) {
                 if (input.value === '' || input.value.length === 0) {
@@ -22,76 +23,38 @@ var KTSigninTwoSteps = function() {
             });
 
             if (validated === true) {
-                var code1 = form.querySelector('[name="code_1"]').value
-                var code2 = form.querySelector('[name="code_2"]').value
-                var code3 = form.querySelector('[name="code_3"]').value
-                var code4 = form.querySelector('[name="code_4"]').value
-
-                console.log(code1,code2,code3,"email")
-                $.ajax({
-                    method:"POST",
-                    url:"/check-otp/",
-                    data:{
-                        csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
-                        code1:code1,
-                        code2:code2,
-                        code3:code3,
-                        code4:code4,
-                    },
-                    success: function(response){
-                        if (response.status == 200){
-
-                            submitButton.setAttribute('data-kt-indicator', 'on');
-            
-                            // Disable button to avoid multiple click 
-                            submitButton.disabled = true;
-            
-                            // Simulate ajax request
-                            setTimeout(function() {
-                                // Hide loading indication
-                                submitButton.removeAttribute('data-kt-indicator');
-            
-                                // Enable button
-                                submitButton.disabled = false;
-            
-                                // Show message popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
-                                form.submit();
-                            }, 1000);
-                        }else if(response.status == 400){
-                            const passwordError = document.getElementById("password-error");
-                            passwordError.innerHTML = `
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                Invalid OTP Entered!
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div>
-                            `;
-                            setTimeout(() => {
-                                passwordError.innerHTML = "";
-                            }, 3000);
-                        }
-                    }
-                });
                 // Show loading indication
+                submitButton.setAttribute('data-kt-indicator', 'on');
+
+                // Disable button to avoid multiple clicks
+                submitButton.disabled = true;
+
+                // Simulate form submission
+                setTimeout(function() {
+                    // Hide loading indication
+                    submitButton.removeAttribute('data-kt-indicator');
+
+                    // Enable button
+                    submitButton.disabled = false;
+
+                    // Submit the form
+                    form.submit();
+                }, 1000); 
             } else {
-                const passwordError = document.getElementById("password-error");
-                passwordError.innerHTML = `
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    Please enter OTP!
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                `;
-                setTimeout(() => {
-                    passwordError.innerHTML = "";
-                }, 3000);
+                // Scroll to the top of the form if validation fails
+                KTUtil.scrollTop();
             }
         });
     }
 
+    // Handle typing and auto-focus on inputs
     var handleType = function() {
         var input1 = form.querySelector("[name=code_1]");
         var input2 = form.querySelector("[name=code_2]");
         var input3 = form.querySelector("[name=code_3]");
         var input4 = form.querySelector("[name=code_4]");
+        var input5 = form.querySelector("[name=code_5]");
+        var input6 = form.querySelector("[name=code_6]");
 
         input1.focus();
 
@@ -116,6 +79,18 @@ var KTSigninTwoSteps = function() {
         input4.addEventListener("keyup", function() {
             if (this.value.length === 1) {
                 input5.focus();
+            }
+        });
+
+        input5.addEventListener("keyup", function() {
+            if (this.value.length === 1) {
+                input6.focus();
+            }
+        });
+        
+        input6.addEventListener("keyup", function() {
+            if (this.value.length === 1) {
+                input6.blur();
             }
         });
     }    
