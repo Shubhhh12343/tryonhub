@@ -64,7 +64,8 @@ def register(request):
         user.save()
 
         # Send OTP to email
-        otp = send_otp(email)
+        otp = send_otp(email, name)
+
 
         # Save OTP to the database for future verification
         OTP.objects.create(user_email=email, otp=otp)
@@ -155,6 +156,11 @@ def log_out(request):
 def otp_page(request):
     # Retrieve email from session or redirect if not present
     email = request.session.get('email')
+    if email:
+        # Call the utility function to mask the email
+        masked_email = hiddden_email(email)
+    else:
+        masked_email = None  # Fallback if email is not in session
     if not email:
         messages.error(request, "Session expired. Please try again.")
         return redirect('forgot-password')
@@ -184,7 +190,7 @@ def otp_page(request):
             messages.error(request, "Invalid OTP. Please try again.")
             return redirect('otp')
 
-    return render(request, 'OTP.html')
+    return render(request, 'OTP.html', {'masked_email': masked_email})
 
 
 
@@ -279,7 +285,7 @@ def forgot_password(request):
 
 
 def emailotp(request):
-    return render (request, 'email-otp-page.html')
+    return render (request, 'email-registration-otp.html')
 
 from django.contrib.auth.hashers import make_password
 

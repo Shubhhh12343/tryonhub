@@ -21,7 +21,7 @@ urlpatterns = [
     path("user-setting/", user_setting, name="user-setting"),
     path("email-template/", email_template, name="email-template"),
     path("view-apparel/", upload_stuff, name="view-apparel"),
-    path("forgot-password", forgot_password, name="forgot-password"),
+    path("forgot-password/", forgot_password, name="forgot-password"),
     path('emailotp/', emailotp, name="emailotp"),
     path('set-password/', set_password, name="set-password")
 ]
